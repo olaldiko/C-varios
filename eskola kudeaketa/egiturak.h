@@ -60,7 +60,6 @@ typedef struct INDIZEA{
     char izena[50];
     int idesk;
     struct INDIZEA *hurrengoa;
-    int eskolakop;
 }INDIZEA_t;
 typedef struct POSI{
 	struct GELA *gelaikas;

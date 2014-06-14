@@ -2,6 +2,7 @@
 #define SORKETAK_C
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "egiturak.h"
 #include "bestelakoak.h"
 #include "menuak.h"
@@ -58,5 +59,35 @@ void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 		gets(ikasgaiberri->izena);
 		fflush(stdin);
     ikasgaiberri->irakaslea = aukeratuirakasle(erabiltzaileak);
+}
+void sortueskola(INDIZEA_t **indizea, int *eskolakop){
+    INDIZEA_t *berria;
+    FILE *eskolafitx;
+    ESKOLA_t *eskolaberri;
+    if ((*indizea) == NULL) {
+        (*indizea) = calloc(1, sizeof(INDIZEA_t));
+        berria = (*indizea);
+    }else{
+    for(berria = (*indizea); berria->hurrengoa != NULL; berria = berria ->hurrengoa);
+    berria = berria->hurrengoa;
+    berria = calloc(1, sizeof(INDIZEA_t));
+    }
+    eskolaberri = calloc(1, sizeof(ESKOLA_t));
+    system("CLS");
+    printf("Sartu eskolaren izena mesedez:\n");
+    gets(berria->izena);
+    fflush(stdin);
+    strcpy(eskolaberri->izena, berria->izena);
+    printf("Sartu eskolaren IDa:\n");
+    scanf("%i", &berria->idesk);
+    fflush(stdin);
+    eskolaberri->idesk = berria->idesk;
+    printf("Sartu eskola berriaren fitxategiaren izena:\n");
+    gets(berria->fitxategia);
+    fflush(stdin);
+    eskolafitx = fopen(berria->fitxategia, "wb");
+    fwrite(eskolaberri, sizeof(eskolaberri), 1, eskolafitx);
+    (*eskolakop)++;
+    
 }
 #endif

@@ -70,7 +70,7 @@ void menueskolanagusia(ESKOLA_t *eskola){
         }
     }
 }
-void menuadmin(INDIZEA_t **indizea){
+void menuadmin(INDIZEA_t **indizea, int *eskolakop){
     char erabiltzailea[50];
     char pasahitza[50];
     int aukera = 0;
@@ -95,18 +95,18 @@ void menuadmin(INDIZEA_t **indizea){
     }while((aukera < 0)&&(aukera > 2));
     switch (aukera) {
         case 1:
-           // sortueskola(indizea);
+           sortueskola(indizea, eskolakop);
             break;
         case 2:
-          //  borratueskola(indizea);
+          //  borratueskola(indizea, eskolakop);
             break;
         default:
             break;
     }
 }
-void menunagusia(INDIZEA_t *indizea){
+void menunagusia(INDIZEA_t *indizea, int *eskolakop){
     int aukera = 0;
-    FILE *eskolafitx;
+    INDIZEA_t *eskolaindex;
     ESKOLA_t *eskola;
     do{
         system("CLS");
@@ -120,10 +120,12 @@ void menunagusia(INDIZEA_t *indizea){
     }while((aukera < 0)&&(aukera > 2));
     switch (aukera) {
         case 1:
-            eskolafitx = aukeratueskola(indizea);
-            //eskola = kargatueskola(eskolafitx);
+            eskolaindex = aukeratueskola(indizea);
+            //eskola = kargatueskola(eskolaindex);
+            menueskolanagusia(eskola);
             break;
-            
+        case 2:
+            menuadmin(&indizea, eskolakop);
         default:
             break;
     }

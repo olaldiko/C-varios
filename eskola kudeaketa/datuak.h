@@ -8,7 +8,6 @@
 
 #ifndef eskola_kudeaketa_datuak_h
 #define eskola_kudeaketa_datuak_h
-FILE *aukeratueskola(INDIZEA_t *);
 INDIZEA_t *kargatuindizea(char fitxategia[]);
 
 #endif

@@ -171,4 +171,29 @@ ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *erabiltzaileak){
     }while(erabiltzailea == NULL);
     return erabiltzailea;
 }
+INDIZEA_t *aukeratueskola(INDIZEA_t *indizea){
+    INDIZEA_t *eskola;
+	int i = 0;
+	int kont = 0;
+	int aukera = 0;
+	eskola = indizea;
+	if(indizea == NULL){
+		printf("------------------------------Ez daude eskolarik----------------------------\n");
+		return NULL;
+	}else{
+        do{
+            for(;eskola !=NULL; eskola = eskola->hurrengoa, kont++){
+                printf("%i. %s %i\t", kont, eskola->izena, eskola->idesk);
+                if(kont %3 == 0)
+                    printf("\n");
+            }
+            printf("\nAukeratu eskola mesedez:\n");
+            scanf("%i", &aukera);
+            fflush(stdin);
+        }while((aukera < 0)&&(aukera > kont));
+        for(i = 0, eskola = indizea ; i <= kont ; eskola = eskola->hurrengoa , i++);
+        return eskola;
+    }
+    
+}
 #endif

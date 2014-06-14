@@ -10,23 +10,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "egiturak.h"
-FILE *aukeratueskola(INDIZEA_t *indizesk){
-    INDIZEA_t *indizea;
-    int kont = 0;
-    int aukera = 0;
-    do{
-        system("CLS");
-        printf("------------------Aukeratu zure eskola mesedez--------------------\n");
-        for(indizea = indizesk; indizea != NULL; indizea = indizea->hurrengoa, kont++){
-            printf("%i. %s\n", kont, indizea->izena);
-        }
-        printf("--------------------------------------------------------------------");
-    }while((aukera < 0)&&(aukera > kont));
-    printf("Aukera: ");
-    scanf("%i", &aukera);
-    for (indizea = indizesk; aukera >= kont; indizea = indizea->hurrengoa);
-    return fopen(indizea->fitxategia, "rb");
-}
 INDIZEA_t *kargatuindizea(char fitxategia[]){
     FILE *indizea;
     INDIZEA_t *indexa;

@@ -10,4 +10,5 @@ POSI_t aurkituikasle(int , ESKOLA_t *);
 float notakbatazbesteko(IKASGAI_t *);
 ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *);
 ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak);
+INDIZEA_t *aukeratueskola(INDIZEA_t *);
 #endif
