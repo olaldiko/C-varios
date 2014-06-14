@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		86A13EAC1947BA5300A6A725 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 86A13EAB1947BA5300A6A725 /* main.c */; };
+		861BCDC2194C8B8F0044617D /* bestelakoak.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDB8194C8B8F0044617D /* bestelakoak.c */; };
+		861BCDC3194C8B8F0044617D /* borraketak.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDBA194C8B8F0044617D /* borraketak.c */; };
+		861BCDC4194C8B8F0044617D /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDBD194C8B8F0044617D /* main.c */; };
+		861BCDC5194C8B8F0044617D /* menuak.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDBE194C8B8F0044617D /* menuak.c */; };
+		861BCDC6194C8B8F0044617D /* sorketak.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDC0194C8B8F0044617D /* sorketak.c */; };
+		86373031194C998C0032043B /* modifikazioak.c in Sources */ = {isa = PBXBuildFile; fileRef = 86373030194C998C0032043B /* modifikazioak.c */; };
+		86373034194CAF190032043B /* bistaraketak.c in Sources */ = {isa = PBXBuildFile; fileRef = 86373033194CAF190032043B /* bistaraketak.c */; };
 		86A13EAE1947BA5300A6A725 /* eskola_kudeaketa.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 86A13EAD1947BA5300A6A725 /* eskola_kudeaketa.1 */; };
 /* End PBXBuildFile section */
 
@@ -25,8 +31,21 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		861BCDB8194C8B8F0044617D /* bestelakoak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bestelakoak.c; sourceTree = "<group>"; };
+		861BCDB9194C8B8F0044617D /* bestelakoak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bestelakoak.h; sourceTree = "<group>"; };
+		861BCDBA194C8B8F0044617D /* borraketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = borraketak.c; sourceTree = "<group>"; };
+		861BCDBB194C8B8F0044617D /* borraketak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = borraketak.h; sourceTree = "<group>"; };
+		861BCDBC194C8B8F0044617D /* egiturak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egiturak.h; sourceTree = "<group>"; };
+		861BCDBD194C8B8F0044617D /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		861BCDBE194C8B8F0044617D /* menuak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menuak.c; sourceTree = "<group>"; };
+		861BCDBF194C8B8F0044617D /* menuak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuak.h; sourceTree = "<group>"; };
+		861BCDC0194C8B8F0044617D /* sorketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sorketak.c; sourceTree = "<group>"; };
+		861BCDC1194C8B8F0044617D /* sorketak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sorketak.h; sourceTree = "<group>"; };
+		86373030194C998C0032043B /* modifikazioak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = modifikazioak.c; sourceTree = "<group>"; };
+		86373032194C99990032043B /* modifikazioak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = modifikazioak.h; sourceTree = "<group>"; };
+		86373033194CAF190032043B /* bistaraketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bistaraketak.c; sourceTree = "<group>"; };
+		86373035194CAF250032043B /* bistaraketak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bistaraketak.h; sourceTree = "<group>"; };
 		86A13EA81947BA5300A6A725 /* eskola kudeaketa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "eskola kudeaketa"; sourceTree = BUILT_PRODUCTS_DIR; };
-		86A13EAB1947BA5300A6A725 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		86A13EAD1947BA5300A6A725 /* eskola_kudeaketa.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = eskola_kudeaketa.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -60,7 +79,20 @@
 		86A13EAA1947BA5300A6A725 /* eskola kudeaketa */ = {
 			isa = PBXGroup;
 			children = (
-				86A13EAB1947BA5300A6A725 /* main.c */,
+				861BCDB8194C8B8F0044617D /* bestelakoak.c */,
+				86373033194CAF190032043B /* bistaraketak.c */,
+				86373035194CAF250032043B /* bistaraketak.h */,
+				861BCDB9194C8B8F0044617D /* bestelakoak.h */,
+				861BCDBA194C8B8F0044617D /* borraketak.c */,
+				861BCDBB194C8B8F0044617D /* borraketak.h */,
+				861BCDBC194C8B8F0044617D /* egiturak.h */,
+				861BCDBD194C8B8F0044617D /* main.c */,
+				861BCDBE194C8B8F0044617D /* menuak.c */,
+				86373030194C998C0032043B /* modifikazioak.c */,
+				86373032194C99990032043B /* modifikazioak.h */,
+				861BCDBF194C8B8F0044617D /* menuak.h */,
+				861BCDC0194C8B8F0044617D /* sorketak.c */,
+				861BCDC1194C8B8F0044617D /* sorketak.h */,
 				86A13EAD1947BA5300A6A725 /* eskola_kudeaketa.1 */,
 			);
 			path = "eskola kudeaketa";
@@ -92,7 +124,7 @@
 		86A13EA01947BA5300A6A725 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Gorka Olalde";
 			};
 			buildConfigurationList = 86A13EA31947BA5300A6A725 /* Build configuration list for PBXProject "eskola kudeaketa" */;
@@ -117,7 +149,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				86A13EAC1947BA5300A6A725 /* main.c in Sources */,
+				861BCDC6194C8B8F0044617D /* sorketak.c in Sources */,
+				86373034194CAF190032043B /* bistaraketak.c in Sources */,
+				861BCDC2194C8B8F0044617D /* bestelakoak.c in Sources */,
+				86373031194C998C0032043B /* modifikazioak.c in Sources */,
+				861BCDC3194C8B8F0044617D /* borraketak.c in Sources */,
+				861BCDC5194C8B8F0044617D /* menuak.c in Sources */,
+				861BCDC4194C8B8F0044617D /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,7 +166,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -161,7 +198,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -187,6 +223,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Debug;
 		};
@@ -194,6 +231,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 			};
 			name = Release;
 		};
@@ -207,7 +245,7 @@
 				86A13EB01947BA5300A6A725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		86A13EB11947BA5300A6A725 /* Build configuration list for PBXNativeTarget "eskola kudeaketa" */ = {
 			isa = XCConfigurationList;
@@ -216,6 +254,7 @@
 				86A13EB31947BA5300A6A725 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
