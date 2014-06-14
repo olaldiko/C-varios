@@ -8,7 +8,8 @@
 
 #ifndef BISTARAKETAK_H
 #define BISTARAKETAK_H
-
-
+void bistaratuGelak(ESKOLA_t *);
+void bistaratunotakgela(GELA_t *);
+void bistaratunotakikasle(IKASLE_t *ikasle);
 
 #endif

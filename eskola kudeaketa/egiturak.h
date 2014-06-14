@@ -15,7 +15,7 @@ typedef struct HELBIDE{
 typedef struct IKASGAI{
 	char izena[50];
 	float nota;
-	int ida;
+	struct ERABILTZAILE *irakaslea;
 	struct IKASGAI *hurrengoa;
 }IKASGAI_t;
 typedef struct IKASLE{
@@ -37,15 +37,31 @@ typedef struct GELA{
 	struct GELA *hurrengoa;
 	struct IKASGAI *stdikasgaiak;
 }GELA_t;
-
+typedef struct ERABILTZAILE{
+    char izena[50];
+    char abizena[50];
+    char pasahitza[50];
+    int sartuda;
+    char ida[20];
+    int mota;
+    struct ERABILTZAILE *hurrengoa;
+}ERABILTZAILE_t;
 typedef struct ESKOLA{
 	int idesk;
 	struct GELA *gelak;
 	char izena[50];
 	int idikasle;
+    struct ERABILTZAILE *erabiltzaileak;
+    int iderabil;
 	struct ESKOLA *hurrengoa;
 }ESKOLA_t;
-
+typedef struct INDIZEA{
+    char fitxategia[100];
+    char izena[50];
+    int idesk;
+    struct INDIZEA *hurrengoa;
+    int eskolakop;
+}INDIZEA_t;
 typedef struct POSI{
 	struct GELA *gelaikas;
 	struct IKASLE *ikaslea;

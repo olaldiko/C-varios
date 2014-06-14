@@ -7,4 +7,7 @@ JAIO_t jaiotzasartu();
 void kopiatuikasgai(GELA_t *, IKASGAI_t **);
 GELA_t *aukeratugela(ESKOLA_t *);
 POSI_t aurkituikasle(int , ESKOLA_t *);
+float notakbatazbesteko(IKASGAI_t *);
+ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *);
+ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak);
 #endif

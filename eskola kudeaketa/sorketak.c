@@ -36,7 +36,7 @@ void sortugela(ESKOLA_t **eskola){
 	gets(gelaberri->tutorea);
 	printf("Sartu gelaren maila:\n");
 	gets(gelaberri->maila);
-	menusortuikasgai(&gelaberri->stdikasgaiak);
+	menusortuikasgai(&gelaberri->stdikasgaiak, (*eskola)->erabiltzaileak);
 	if((*eskola)->gelak == NULL){
 		(*eskola)->gelak = gelaberri;
 	}else{
@@ -44,7 +44,7 @@ void sortugela(ESKOLA_t **eskola){
 		gelak->hurrengoa = gelaberri;
 	}
 }
-void sortuikasgai(IKASGAI_t **ikasgaiak){
+void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 	IKASGAI_t *ikasgaiberri;
 	if((*ikasgaiak) == NULL){
 		(*ikasgaiak) = (IKASGAI_t *)calloc(1, sizeof(IKASGAI_t));
@@ -57,8 +57,6 @@ void sortuikasgai(IKASGAI_t **ikasgaiak){
 		printf("Mesedez, sartu ikasgaiaren izena:\n");
 		gets(ikasgaiberri->izena);
 		fflush(stdin);
-		printf("Sartu ikasgaiaren irakaslearen IDa:\n");
-		scanf("%i", &ikasgaiberri->ida);
-		fflush(stdin);
+    ikasgaiberri->irakaslea = aukeratuirakasle(erabiltzaileak);
 }
 #endif

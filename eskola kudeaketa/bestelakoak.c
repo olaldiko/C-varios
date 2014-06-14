@@ -70,7 +70,7 @@ GELA_t *aukeratugela(ESKOLA_t *eskola){
 	int aukera = 0;
 	gela = eskola->gelak;
 	if(gela == NULL){
-		printf("------------------------------Ez daude Gelarik----------------------------");
+		printf("------------------------------Ez daude Gelarik----------------------------\n");
 		return NULL;
 	}else{
 	do{
@@ -83,10 +83,34 @@ GELA_t *aukeratugela(ESKOLA_t *eskola){
 	printf("\nAukeratu gela mesedez:\n");
 	scanf("%i", &aukera);
 	fflush(stdin);
-	}while((aukera < 0)&&(aukera < kont));
+	}while((aukera < 0)&&(aukera > kont));
 	for(i = 0, gela = eskola->gelak ; i <= kont ; gela = gela->hurrengoa , i++);
 	return gela;
 }
+}
+ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
+	ERABILTZAILE_t *irakaslea;
+	int i = 0;
+	int kont = 0;
+	int aukera = 0;
+	irakaslea = erabiltzaileak;
+	if(irakaslea == NULL){
+		printf("------------------------------Ez daude erabiltzailerik----------------------------\n");
+		return NULL;
+	}else{
+        do{
+            for(;irakaslea !=NULL; irakaslea = irakaslea->hurrengoa, kont++){
+                printf("%i. %s %s\t", kont, irakaslea->izena, irakaslea->abizena);
+                if(kont %3 == 0)
+                    printf("\n");
+            }
+            printf("\nAukeratu irakaslea mesedez:\n");
+            scanf("%i", &aukera);
+            fflush(stdin);
+        }while((aukera < 0)&&(aukera > kont));
+        for(i = 0, irakaslea = erabiltzaileak ; i <= kont ; irakaslea = irakaslea->hurrengoa , i++);
+        return irakaslea;
+    }
 }
 POSI_t aurkituikasle(int idal, ESKOLA_t *eskola){
 	POSI_t posizioa;
@@ -113,5 +137,38 @@ float notakbatazbesteko(IKASGAI_t *ikasgaiak){
     }
 	nota = nota/(i+1);
     return nota;
+}
+ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *erabiltzaileak){
+    char ida[30];
+    char pasahitza[50];
+    ERABILTZAILE_t *erabiltzailea;
+    do{
+    system("CLS");
+    printf("--------------------------ONGI ETORRI GESTIO SISTEMARA----------------------\n");
+    printf("Sartu zure erabiltzaile IDa:\n>");
+    gets(ida);
+    fflush(stdin);
+    printf("Sartu zure pasahitza:\n>");
+    gets(pasahitza);
+    for(erabiltzailea = erabiltzaileak; (((strcmp(erabiltzailea->ida,ida) != 0)||(strcmp(erabiltzailea->pasahitza, pasahitza) != 0))&&(erabiltzailea != NULL)); erabiltzailea = erabiltzailea->hurrengoa);
+    if(erabiltzailea == NULL){
+        printf("Erabiltzailea ez da aurkitu\n");
+        getchar();
+        fflush(stdin);
+    }else{
+        if(erabiltzailea->sartuda == 0){
+            printf("sartzen zaren lehenengo aldia da, mesedez, sartu pasahitz berri bat(minimo 8 karaktere)\n");
+            gets(erabiltzailea->pasahitza);
+            fflush(stdin);
+            while(strlen(pasahitza)< 8){
+                printf("Pasahitzak ez ditu minimoak betetzen, saiatu berriz\n");
+                gets(erabiltzailea->pasahitza);
+            }
+            printf("Pasahitza aldatu egin da\n");
+            erabiltzailea->sartuda = 1;
+        }
+    }
+    }while(erabiltzailea == NULL);
+    return erabiltzailea;
 }
 #endif

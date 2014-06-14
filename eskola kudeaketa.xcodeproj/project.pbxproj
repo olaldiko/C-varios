@@ -14,6 +14,7 @@
 		861BCDC6194C8B8F0044617D /* sorketak.c in Sources */ = {isa = PBXBuildFile; fileRef = 861BCDC0194C8B8F0044617D /* sorketak.c */; };
 		86373031194C998C0032043B /* modifikazioak.c in Sources */ = {isa = PBXBuildFile; fileRef = 86373030194C998C0032043B /* modifikazioak.c */; };
 		86373034194CAF190032043B /* bistaraketak.c in Sources */ = {isa = PBXBuildFile; fileRef = 86373033194CAF190032043B /* bistaraketak.c */; };
+		86373037194CC81A0032043B /* datuak.c in Sources */ = {isa = PBXBuildFile; fileRef = 86373036194CC81A0032043B /* datuak.c */; };
 		86A13EAE1947BA5300A6A725 /* eskola_kudeaketa.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 86A13EAD1947BA5300A6A725 /* eskola_kudeaketa.1 */; };
 /* End PBXBuildFile section */
 
@@ -45,6 +46,8 @@
 		86373032194C99990032043B /* modifikazioak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = modifikazioak.h; sourceTree = "<group>"; };
 		86373033194CAF190032043B /* bistaraketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bistaraketak.c; sourceTree = "<group>"; };
 		86373035194CAF250032043B /* bistaraketak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bistaraketak.h; sourceTree = "<group>"; };
+		86373036194CC81A0032043B /* datuak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = datuak.c; sourceTree = "<group>"; };
+		86373038194CC8230032043B /* datuak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = datuak.h; sourceTree = "<group>"; };
 		86A13EA81947BA5300A6A725 /* eskola kudeaketa */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "eskola kudeaketa"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86A13EAD1947BA5300A6A725 /* eskola_kudeaketa.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = eskola_kudeaketa.1; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +90,8 @@
 				861BCDBB194C8B8F0044617D /* borraketak.h */,
 				861BCDBC194C8B8F0044617D /* egiturak.h */,
 				861BCDBD194C8B8F0044617D /* main.c */,
+				86373036194CC81A0032043B /* datuak.c */,
+				86373038194CC8230032043B /* datuak.h */,
 				861BCDBE194C8B8F0044617D /* menuak.c */,
 				86373030194C998C0032043B /* modifikazioak.c */,
 				86373032194C99990032043B /* modifikazioak.h */,
@@ -152,6 +157,7 @@
 				861BCDC6194C8B8F0044617D /* sorketak.c in Sources */,
 				86373034194CAF190032043B /* bistaraketak.c in Sources */,
 				861BCDC2194C8B8F0044617D /* bestelakoak.c in Sources */,
+				86373037194CC81A0032043B /* datuak.c in Sources */,
 				86373031194C998C0032043B /* modifikazioak.c in Sources */,
 				861BCDC3194C8B8F0044617D /* borraketak.c in Sources */,
 				861BCDC5194C8B8F0044617D /* menuak.c in Sources */,
