@@ -65,7 +65,7 @@ void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 }
 void sortueskola(INDIZEA_t **indizea, int *eskolakop){
     INDIZEA_t *berria;
-    FILE *eskolafitx;
+    //FILE *eskolafitx;
     ESKOLA_t *eskolaberri;
     if ((*indizea) == NULL) {
         (*indizea) = calloc(1, sizeof(INDIZEA_t));
@@ -87,10 +87,10 @@ void sortueskola(INDIZEA_t **indizea, int *eskolakop){
     fpurge(stdin);
     eskolaberri->idesk = berria->idesk;
     printf("Sartu eskola berriaren fitxategiaren izena:\n");
-    gets(berria->fitxategia);
-    fpurge(stdin);
-    eskolafitx = fopen(berria->fitxategia, "wb");
-    fwrite(eskolaberri, sizeof(eskolaberri), 1, eskolafitx);
+    //gets(berria->fitxategia);
+    //fpurge(stdin);
+    //eskolafitx = fopen(berria->fitxategia, "wb");
+   // fwrite(eskolaberri, sizeof(eskolaberri), 1, eskolafitx);
     (*eskolakop)++;
     
 }
