@@ -100,9 +100,11 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
 	}else{
         do{
             for(;irakaslea !=NULL; irakaslea = irakaslea->hurrengoa, kont++){
+                if (irakaslea->mota == 2){
                 printf("%i. %s %s\t", kont, irakaslea->izena, irakaslea->abizena);
                 if(kont %3 == 0)
                     printf("\n");
+                }
             }
             printf("\nAukeratu irakaslea mesedez:\n");
             scanf("%i", &aukera);
@@ -127,6 +129,33 @@ POSI_t aurkituikasle(int idal, ESKOLA_t *eskola){
 		posizioa.gelaikas = posizioa.gelaikas->hurrengoa;
 	}
 	return posizioa;
+}
+IKASGAI_t *aukeratuikasgai(IKASGAI_t *ikasgaiak, ERABILTZAILE_t *irakaslea){
+    int kont = 0;
+    int aukera = 0;
+    int i = 0;
+    int badaude = 0;
+    IKASGAI_t *ikasgaia;
+    
+    do{
+    printf("Aukeratu ikasgaia mesedez");
+    for (ikasgaia = ikasgaiak; ikasgaia!= NULL; ikasgaia = ikasgaia->hurrengoa, kont++) {
+        if (ikasgaia->irakaslea == irakaslea) {
+            printf("%i. %s\n", kont, ikasgaia->izena);
+            badaude = 1;
+        }
+    }
+    if (badaude == 1) {
+        printf("Aukera: ");
+        scanf("%i", &aukera);
+        fpurge(stdin);
+    }else{
+        printf("Ikasle honek ez ditu zuk emandako ikasgairik\n");
+        return NULL;
+    }
+    }while (((aukera < 0)||(aukera > kont))&&(badaude == 1));
+    for (ikasgaia = ikasgaiak, i = 0; ((ikasgaia != NULL)&&(i <= kont)); ikasgaia = ikasgaia->hurrengoa, i++);
+    return ikasgaia;
 }
 float notakbatazbesteko(IKASGAI_t *ikasgaiak){
     IKASGAI_t *ikasgaia;

@@ -78,4 +78,22 @@ void bistaratuikasle(ESKOLA_t *eskola){
     getchar();
     fpurge(stdin);
 }
+void bistaratunotakirakas(IKASLE_t *ikaslea, ERABILTZAILE_t *irakaslea){
+    IKASGAI_t *ikasgaia;
+    printf("Izen abizenak: %s %s\n", ikaslea->izena, ikaslea->abizenak);
+    for (ikasgaia = ikaslea->ikasgaiak; ikasgaia!= NULL; ikasgaia = ikasgaia->hurrengoa) {
+        if (ikasgaia->irakaslea == irakaslea) {
+            printf("\tIkasgaia: %s\tNota: %f\n", ikasgaia->izena, ikasgaia->nota);
+        }
+    }
+    
+}
+void bistaratunotakirakasgela(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
+    IKASLE_t *ikasleak;
+    ikasleak = aukeratugela(eskola)->ikasleak;
+    for (; ikasleak != NULL; ikasleak = ikasleak->hurrengoa) {
+        bistaratunotakirakas(ikasleak, irakaslea);
+    }
+}
+
 #endif

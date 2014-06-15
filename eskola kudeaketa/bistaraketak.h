@@ -12,4 +12,6 @@ void bistaratugelak(ESKOLA_t *);
 void bistaratunotakgela(GELA_t *);
 void bistaratunotakikasle(IKASLE_t *);
 void bistaratuikasle(ESKOLA_t *);
+void bistaratunotakirakas(IKASLE_t *, ERABILTZAILE_t *);
+void bistaratunotakirakasgela(ESKOLA_t *, ERABILTZAILE_t *);
 #endif

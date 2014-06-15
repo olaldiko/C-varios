@@ -61,10 +61,10 @@ void menueskolanagusia(ESKOLA_t *eskola){
     erabiltzailea = loginmenu(eskola->erabiltzaileak);
     switch (erabiltzailea->mota) {
         case 1:
-          //  menuidazkaria(eskola);
+            menuidazk(&eskola);
             break;
         case 2:
-          //  menuirakasle(eskola);
+          //  menuirakasle(eskola, erabiltzailea);
             break;
     }
     }else{
@@ -127,6 +127,63 @@ void menuidazk(ESKOLA_t **eskola){
 		}
 	}
     
+}
+void menuirakasle(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
+    POSI_t pos;
+	int aukera = 0;
+    int idal = 0;
+	while(aukera != 4){
+		system("clear");
+		printf("*************************************************\n");
+		printf("** 1-Ikasle baten nota sartu                   **\n");
+		printf("** 2-Ikasle baten nota ikusi                   **\n");
+		printf("** 3-Gela bateko ikasle guztien nota ikusi     **\n");
+		printf("** 4-Irten                                     **\n");
+		printf("*************************************************\n");
+		scanf("%i", &aukera);
+		fflush(stdin);
+		switch(aukera){
+			case 1:
+				notaksartumenu(eskola, irakaslea);
+				break;
+			case 2:
+                printf("Sartu ikaslearen IDALa mesedez:\n");
+                scanf("%i", &idal);
+                pos = aurkituikasle(idal, eskola);
+				bistaratunotakirakas(pos.ikaslea, irakaslea);
+				break;
+                
+			case 3:
+				bistaratunotakirakasgela(eskola, irakaslea);
+				break;
+                
+			case 4:
+				printf("Programatik ateratzea erabaki duzu\n");
+				// Datuak Gorde
+				break;
+                
+			default:
+				printf("Zure aukera ez dago eskuragarri, saiatu berriz");
+				break;
+                
+		}
+	}
+}
+void notaksartumenu(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
+	POSI_t pos;
+    IKASGAI_t *ikasgaia;
+	int idal = 0;
+	system("CLS");
+	printf("Mesedez, sartu ikaslearen ida:\n");
+	scanf("%i", &idal);
+	fflush(stdin);
+	pos = aurkituikasle(idal, eskola);
+	if(pos.ikaslea == NULL){
+        printf("Ikaslea ez da aurkitu\n");
+	}else{
+        ikasgaia = aukeratuikasgai(pos.ikaslea->ikasgaiak, irakaslea);
+        ikasgaia->nota = notaksartu();
+    }
 }
 void menuadmin(INDIZEA_t **indizea, int *eskolakop){
     char erabiltzailea[50];

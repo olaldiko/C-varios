@@ -5,4 +5,6 @@ void sartunotakmenu(IKASGAI_t **, ERABILTZAILE_t*);
 void menueskolanagusia(ESKOLA_t *);
 void menuadmin(INDIZEA_t **, int *);
 void menunagusia(INDIZEA_t *, int *);
+void menuidazk(ESKOLA_t **);
+void notaksartumenu(ESKOLA_t *, ERABILTZAILE_t *);
 #endif
