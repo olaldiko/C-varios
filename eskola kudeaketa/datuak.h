@@ -15,4 +15,11 @@ void gelakgorde(ESKOLA_t *);
 void ikasleakgorde(GELA_t *, int);
 void stdikasgaiakgorde(GELA_t *, int);
 void ikasgaiakgorde(IKASLE_t *, int, int);
+void indizeairakurri(INDIZEA_t **, int *);
+void eskolairakurri(ESKOLA_t **, int);
+void erabiltzaileakirakurri(ESKOLA_t *);
+void gelakirakurri(ESKOLA_t *);
+void ikasleakirakurri(GELA_t *, int, ERABILTZAILE_t *);
+void stdikasgaiakirakurri(GELA_t *, int, ERABILTZAILE_t *);
+void ikasgaiakirakurri(IKASLE_t *, int, int, ERABILTZAILE_t *);
 #endif

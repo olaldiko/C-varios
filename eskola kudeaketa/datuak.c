@@ -257,8 +257,8 @@ void ikasgaiakirakurri(IKASLE_t *ikaslea, int idesk, int idgela, ERABILTZAILE_t 
             fscanf(ikasgaifitx, "%s;%f;%s\n", ikasgaia->izena, &ikasgaia->nota, irakasid);
             //ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
             if (!feof(ikasgaifitx)) {
-                ikaslea->hurrengoa = calloc(1, sizeof(IKASGAI_t));
-                ikaslea = ikaslea->hurrengoa;
+                ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
+                ikasgaia = ikasgaia->hurrengoa;
             }
         }
         fclose(ikasgaifitx);
