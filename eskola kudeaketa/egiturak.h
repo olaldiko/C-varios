@@ -30,6 +30,7 @@ typedef struct IKASLE{
 }IKASLE_t;
 
 typedef struct GELA{
+    int idgela;
 	char maila[50];
 	int ikasle_kop;
 	struct IKASLE *ikasleak;
@@ -57,7 +58,6 @@ typedef struct ESKOLA{
 	struct ESKOLA *hurrengoa;
 }ESKOLA_t;
 typedef struct INDIZEA{
-    char fitxategia[100];
     char izena[50];
     int idesk;
     struct INDIZEA *hurrengoa;

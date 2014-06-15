@@ -64,12 +64,12 @@ void menueskolanagusia(ESKOLA_t *eskola){
             menuidazk(&eskola);
             break;
         case 2:
-          //  menuirakasle(eskola, erabiltzailea);
+            menuirakasle(eskola, erabiltzailea);
             break;
     }
     }else{
         if (aukera == 2){
-       //     menuikasle(eskola);
+            menuikasle(eskola);
         }
     }
 }
@@ -119,6 +119,7 @@ void menuidazk(ESKOLA_t **eskola){
 				break;
 			case 8:
 				printf("Irtetzen...");
+                //Datuak gorde
 				break;
 			default:
 				printf("Zure aukera ez dago eskuragarri, saiatu berriz");
@@ -167,6 +168,28 @@ void menuirakasle(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
 				break;
                 
 		}
+	}
+}
+void menuikasle(ESKOLA_t *eskola){
+	char userikasle[30];
+	int passwordikasle = 0;
+	POSI_t pos;
+	system("clear");
+	printf("Zein da zure abizena? ");
+	gets(userikasle);
+	fpurge(stdin);
+	printf("\nSartu zure id-a\n");
+	scanf("%i", &passwordikasle);
+	fpurge(stdin);
+	pos=aurkituikasle(passwordikasle, eskola);
+	if (strcmp(userikasle, pos.ikaslea->abizenak)==0){
+        bistaratunotakikasle(pos.ikaslea);
+        getchar();
+        fpurge(stdin);
+	}else{
+		printf("\nEz duzu pasahitza ondo sartu, sakatu tekla bat");
+		getchar();
+		fpurge(stdin);
 	}
 }
 void notaksartumenu(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){

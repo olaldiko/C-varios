@@ -72,8 +72,9 @@ void sortueskola(INDIZEA_t **indizea, int *eskolakop){
         berria = (*indizea);
     }else{
     for(berria = (*indizea); berria->hurrengoa != NULL; berria = berria ->hurrengoa);
+    
+    berria->hurrengoa = calloc(1, sizeof(INDIZEA_t));
     berria = berria->hurrengoa;
-    berria = calloc(1, sizeof(INDIZEA_t));
     }
     eskolaberri = calloc(1, sizeof(ESKOLA_t));
     system("clear");
