@@ -18,7 +18,7 @@ INDIZEA_t *kargatuindizea(char fitxategia[]){
     if(indizea == NULL){
         printf("Ezin izan da fitxategia irakurri");
     }else{
-        indexa = calloc(1, sizeof(indexa));
+        indexa = calloc(1, sizeof(INDIZEA_t));
         hasiera = indexa;
         while(!feof(indizea)){
             fread(indexa, 1, sizeof(INDIZEA_t), indizea);

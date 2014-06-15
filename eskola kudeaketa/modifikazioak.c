@@ -12,15 +12,19 @@
 #include "egiturak.h"
 #include "bestelakoak.h"
 #include "modifikazioak.h"
-void modifikatuikasle(ESKOLA_t **eskola, int idal, int idesk){
+void modifikatuikasle(ESKOLA_t **eskola){
 	POSI_t posi;
 	int aukera = 0;
+    int idal = 0;
 	IKASLE_t *ikaslea;
-	posi = aurkituikasle(idesk, *eskola);
+    printf("Sartu ikaslearen IDALa mesedez");
+    scanf("%i", &idal);
+    fpurge(stdin);
+	posi = aurkituikasle(idal, (*eskola));
 	if(posi.ikaslea !=NULL){
         ikaslea = posi.ikaslea;
 		while(aukera != 5){
-            system("CLS");
+            system("clear");
             printf("Ze datu modifikatu nahi duzu?\n");
             printf("1. Izena\n");
             printf("2. Abizenak\n");
@@ -29,51 +33,53 @@ void modifikatuikasle(ESKOLA_t **eskola, int idal, int idesk){
             printf("5. Irten");
             printf(">");
             scanf("%i", &aukera);
-            fflush(stdin);
+            fpurge(stdin);
             switch(aukera){
                 case 1:
                     printf("Sartu izena mesedez:\n>");
                     gets(ikaslea -> izena);
-                    fflush(stdin);
+                    fpurge(stdin);
                     break;
                 case 2:
                     printf("Sartu abizenak mesedez:\n>");
                     gets(ikaslea -> abizenak);
-                    fflush(stdin);
+                    fpurge(stdin);
                     break;
                 case 3:
-                    ikaslea -> helbidea =
-                    modifikatuhelbidea(ikaslea -> helbidea);
+                    ikaslea -> helbidea = modifikatuhelbidea();
                     break;
                 case 4:
-                    ikaslea -> jaiotza = 
-                    modifikatujaiotza(ikaslea -> jaiotza);
+                    ikaslea -> jaiotza = modifikatujaiotza();
                     break;
             }
         }
+        printf("\nIkaslearen modifikazioa gauzatu egin da\n");
+		getchar();
+		fpurge(stdin);
 	}else{
 		printf("\nIkaslea ez da aurkitu\n");
 		getchar();
-		fflush(stdin);
+		fpurge(stdin);
 	}
 }
-JAIO_t modifikatujaiotza(JAIO_t jaiotza){
-	system("CLS");
+JAIO_t modifikatujaiotza(){
+    JAIO_t jaiotza;
+	system("clear");
 	printf("Sartu eguna mesedez:\n>");
 	scanf("%i", &jaiotza.eguna);
-	fflush(stdin);
+	fpurge(stdin);
 	printf("\nSartu hilabetea:\n>");
 	scanf("%i", &jaiotza.hilabetea);
-	fflush(stdin);
+	fpurge(stdin);
 	printf("\nSartu urtea:\n>");
 	scanf("%i", &jaiotza.urtea);
-	fflush(stdin);
+	fpurge(stdin);
 	return jaiotza;
 }
 HELBIDE_t modifikatuhelbidea(HELBIDE_t helbidea){
 	int aukera = 0;
 	while (aukera != 6){
-		system("CLS");
+		system("clear");
 		printf("Ze datu modifikatu nahi duzu?\n");
 		printf("1. Kalea\n");
 		printf("2. Zenbakia\n");
@@ -83,57 +89,59 @@ HELBIDE_t modifikatuhelbidea(HELBIDE_t helbidea){
 		printf("6. Irten\n");
 		printf(">");
 		scanf("%i", &aukera);
-		fflush(stdin);
+		fpurge(stdin);
 		switch(aukera){
             case 1:
                 printf("Sartu kalea mesedez\n");
                 gets(helbidea.kalea);
+                fpurge(stdin);
                 break;
             case 2:
                 printf("Sartu zenbakia mesedez:\n>");
                 scanf("%i", &helbidea.zenbakia);
-                fflush(stdin);
+                fpurge(stdin);
                 break;
             case 3:
                 printf("Sartu pisua mesedez:\n>");
                 gets(helbidea.pisua);
-                fflush(stdin);
+                fpurge(stdin);
                 break;
             case 4:
                 printf("Sartu herria mesedez:\n>");
                 gets(helbidea.herria);
-                fflush(stdin);
+                fpurge(stdin);
                 break;
             case 5:
                 printf("Sartu posta kodea mesedez:\n>");
                 scanf("%i", &helbidea.postakodea);
-                fflush(stdin);
+                fpurge(stdin);
                 break;
 		}
 	}
 	return helbidea;
 }
-void modifikatugela(ESKOLA_t **eskola, int idesk){
+void modifikatugela(ESKOLA_t **eskola){
 	int aukera = 0;
 	GELA_t *gela;
-	gela = aukeratugela(*eskola);
+	gela = aukeratugela((*eskola));
 	while (aukera != 3){
-		system("CLS");
+		system("clear");
 		printf("Ze datu aldatu nahi duzu?\n");
 		printf("1. Gelaren maila\n");
 		printf("2. Tutorea\n");
 		printf("3. Irten\n>");
 		scanf("%i", &aukera);
-		fflush(stdin);
+		fpurge(stdin);
 		switch(aukera){
 			case 1:
 				printf("Sartu gelaren maila:\n");
                 gets(gela->maila);
+                fpurge(stdin);
 				break;
 			case 2:
 				printf("Sartu tutorearen izena mesedez:\n>");
 				gets(gela -> tutorea);
-				fflush(stdin);
+				fpurge(stdin);
 				break;
 		}
 	}

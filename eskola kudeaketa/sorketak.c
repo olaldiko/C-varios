@@ -18,9 +18,10 @@ void sortuikasle(ESKOLA_t **eskola){
 	ikaslea = (IKASLE_t*)calloc(1, sizeof(IKASLE_t));
 	printf("Mesedez, sartu ikaslearen izena\n");
 	gets(ikaslea->izena);
-	fflush(stdin);
+	fpurge(stdin);
 	printf("Sartu ikaslearen abizenak");
 	gets(ikaslea->abizenak);
+    fpurge(stdin);
 	ikaslea->helbidea = helbideasartu();
 	ikaslea->jaiotza = jaiotzasartu();
 	kopiatuikasgai(gela, &ikaslea->ikasgaiak);
@@ -29,14 +30,16 @@ void sortugela(ESKOLA_t **eskola){
 	GELA_t *gelaberri;
 	GELA_t *gelak;
 	gelaberri = (GELA_t *)calloc(1, sizeof(GELA_t));
-	system("CLS");
+	system("clear");
 	printf("Mesedez, sartu gelaren izena:\n");
 	gets(gelaberri->gelafisikoa);
-	fflush(stdin);
+	fpurge(stdin);
 	printf("Sartu tutorearen izena:\n");
 	gets(gelaberri->tutorea);
+    fpurge(stdin);
 	printf("Sartu gelaren maila:\n");
 	gets(gelaberri->maila);
+    fpurge(stdin);
 	menusortuikasgai(&gelaberri->stdikasgaiak, (*eskola)->erabiltzaileak);
 	if((*eskola)->gelak == NULL){
 		(*eskola)->gelak = gelaberri;
@@ -57,7 +60,7 @@ void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 	}
 		printf("Mesedez, sartu ikasgaiaren izena:\n");
 		gets(ikasgaiberri->izena);
-		fflush(stdin);
+		fpurge(stdin);
     ikasgaiberri->irakaslea = aukeratuirakasle(erabiltzaileak);
 }
 void sortueskola(INDIZEA_t **indizea, int *eskolakop){
@@ -73,18 +76,18 @@ void sortueskola(INDIZEA_t **indizea, int *eskolakop){
     berria = calloc(1, sizeof(INDIZEA_t));
     }
     eskolaberri = calloc(1, sizeof(ESKOLA_t));
-    system("CLS");
+    system("clear");
     printf("Sartu eskolaren izena mesedez:\n");
     gets(berria->izena);
-    fflush(stdin);
+    fpurge(stdin);
     strcpy(eskolaberri->izena, berria->izena);
     printf("Sartu eskolaren IDa:\n");
     scanf("%i", &berria->idesk);
-    fflush(stdin);
+    fpurge(stdin);
     eskolaberri->idesk = berria->idesk;
     printf("Sartu eskola berriaren fitxategiaren izena:\n");
     gets(berria->fitxategia);
-    fflush(stdin);
+    fpurge(stdin);
     eskolafitx = fopen(berria->fitxategia, "wb");
     fwrite(eskolaberri, sizeof(eskolaberri), 1, eskolafitx);
     (*eskolakop)++;

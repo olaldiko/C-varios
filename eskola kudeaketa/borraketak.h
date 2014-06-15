@@ -1,6 +1,6 @@
 #ifndef BORRAKETAK_H
 #define BORRAKETAK_H
 #include "egiturak.h"
-void borratuGela(ESKOLA_t *);
-void borratuIkasle(ESKOLA_t *);
+void borratugela(ESKOLA_t *);
+void borratuikasle(ESKOLA_t *);
 #endif

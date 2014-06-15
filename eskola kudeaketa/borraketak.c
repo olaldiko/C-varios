@@ -6,7 +6,7 @@
 #include "egiturak.h"
 #include "bestelakoak.h"
 
-void borratuGela(ESKOLA_t *eskola){
+void borratugela(ESKOLA_t *eskola){
 	GELA_t *gela;
 	GELA_t *hasiera;
 	GELA_t *gelaux;
@@ -34,34 +34,28 @@ void borratuGela(ESKOLA_t *eskola){
 	}
 }
 
-void borratuIkasle(ESKOLA_t *eskola){
-	IKASLE_t *hasiera;
+void borratuikasle(ESKOLA_t *eskola){
 	IKASLE_t *ikasleaux;
-	IKASLE_t *temp;
 	POSI_t pos;
 	int id;
 	printf("\nSartu bilatu nahi duzun ikaslearen id-a :  ");
 	scanf("%i", &id);
-	pos.gelaikas = aukeratugela(eskola);                        //Esto hay que tocarlo, esta mal
-	if (pos.gelaikas != NULL){
-		hasiera = pos.gelaikas->ikasleak;
-		ikasleaux = hasiera;
-		if (ikasleaux == pos.ikaslea){
-			temp = ikasleaux;
-			ikasleaux = ikasleaux->hurrengoa;
-			free(temp);
-			pos.gelaikas->ikasleak = ikasleaux;
-		}
-		else{
-			while (ikasleaux->hurrengoa != pos.ikaslea || ikasleaux->hurrengoa != NULL){
-				ikasleaux = ikasleaux->hurrengoa;
-			}
-			if (ikasleaux->hurrengoa == pos.ikaslea){
-				temp = ikasleaux->hurrengoa;
-				ikasleaux->hurrengoa = ikasleaux->hurrengoa->hurrengoa;
-				free(temp);
-			}
-		}
-	}
+    pos = aurkituikasle(id, eskola);
+    if (pos.ikaslea == NULL) {
+        printf("Ikaslea ez da aurkitu\n");
+    }else{
+        if (pos.ikaslea == pos.gelaikas->ikasleak) {
+            pos.gelaikas->ikasleak = pos.ikaslea->hurrengoa;
+        }else{
+            for (ikasleaux = pos.gelaikas->ikasleak; ikasleaux->hurrengoa != pos.ikaslea; ikasleaux = ikasleaux->hurrengoa);
+            if(pos.ikaslea->hurrengoa!= NULL){
+                ikasleaux->hurrengoa = pos.ikaslea->hurrengoa;
+            }else{
+                ikasleaux->hurrengoa = NULL;
+            }
+        }
+        free(pos.ikaslea);
+        pos.gelaikas->ikasle_kop--;
+    }
 }
 #endif

@@ -32,17 +32,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		861BCDB8194C8B8F0044617D /* bestelakoak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bestelakoak.c; sourceTree = "<group>"; };
+		861BCDB8194C8B8F0044617D /* bestelakoak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = bestelakoak.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		861BCDB9194C8B8F0044617D /* bestelakoak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = bestelakoak.h; sourceTree = "<group>"; };
 		861BCDBA194C8B8F0044617D /* borraketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = borraketak.c; sourceTree = "<group>"; };
 		861BCDBB194C8B8F0044617D /* borraketak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = borraketak.h; sourceTree = "<group>"; };
 		861BCDBC194C8B8F0044617D /* egiturak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = egiturak.h; sourceTree = "<group>"; };
 		861BCDBD194C8B8F0044617D /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		861BCDBE194C8B8F0044617D /* menuak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = menuak.c; sourceTree = "<group>"; };
+		861BCDBE194C8B8F0044617D /* menuak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = menuak.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		861BCDBF194C8B8F0044617D /* menuak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = menuak.h; sourceTree = "<group>"; };
-		861BCDC0194C8B8F0044617D /* sorketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sorketak.c; sourceTree = "<group>"; };
+		861BCDC0194C8B8F0044617D /* sorketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 2; path = sorketak.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		861BCDC1194C8B8F0044617D /* sorketak.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sorketak.h; sourceTree = "<group>"; };
-		86373030194C998C0032043B /* modifikazioak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = modifikazioak.c; sourceTree = "<group>"; };
+		86373030194C998C0032043B /* modifikazioak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = modifikazioak.c; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.c; };
 		86373032194C99990032043B /* modifikazioak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = modifikazioak.h; sourceTree = "<group>"; };
 		86373033194CAF190032043B /* bistaraketak.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = bistaraketak.c; sourceTree = "<group>"; };
 		86373035194CAF250032043B /* bistaraketak.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = bistaraketak.h; sourceTree = "<group>"; };

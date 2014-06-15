@@ -11,6 +11,7 @@ typedef struct HELBIDE{
 	char pisua[20];
 	char herria[40];
 	int postakodea;
+    char telefonoa[12];
 }HELBIDE_t;
 typedef struct IKASGAI{
 	char izena[50];

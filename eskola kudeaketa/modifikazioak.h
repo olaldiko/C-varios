@@ -8,9 +8,9 @@
 
 #ifndef MODIFIKAZIOAK_H
 #define MODIFIKAZIOAK_H
-void modifikatuikasle(ESKOLA_t **, int, int);
-JAIO_t modifikatujaiotza(JAIO_t);
-HELBIDE_t modifikatuhelbidea(HELBIDE_t);
-void modifikatugela(ESKOLA_t **, int);
+void modifikatuikasle(ESKOLA_t **);
+JAIO_t modifikatujaiotza();
+HELBIDE_t modifikatuhelbidea();
+void modifikatugela(ESKOLA_t **);
 void mugituikasle(ESKOLA_t **);
 #endif

@@ -13,7 +13,7 @@
 #include "egiturak.h"
 #include "bestelakoak.h"
 
-void bistaratuGelak(ESKOLA_t *eskola){
+void bistaratugelak(ESKOLA_t *eskola){
 	GELA_t *hasiera;
 	GELA_t *gela;
 	int kont = 0;
@@ -51,5 +51,31 @@ void bistaratunotakikasle(IKASLE_t *ikasle){
     }
     printf("--------------------------------------------------------------------------");
 }
+void bistaratuikasle(ESKOLA_t *eskola){
+    int idal = 0;
+    POSI_t pos;
+    system("clear");
+    printf("Mesedez, sartu ikaslearen IDALa:\n");
+    scanf("%i", &idal);
+    pos = aurkituikasle(idal, eskola);
+    if (pos.ikaslea != NULL) {
+        printf("Izena: %s\n",pos.ikaslea->izena);
+        printf("Abizena: %s\n", pos.ikaslea->abizenak);
+        printf("Jaiotza: %i/%i/%i\n", pos.ikaslea->jaiotza.eguna, pos.ikaslea->jaiotza.hilabetea, pos.ikaslea->jaiotza.urtea);
+        printf("Helbidea:\n");
+        printf("\tKalea ,zenbakia eta pisua: %s %i, %s\n", pos.ikaslea->helbidea.kalea, pos.ikaslea->helbidea.zenbakia, pos.ikaslea->helbidea.pisua);
+        printf("\tHerria: %s\n", pos.ikaslea->helbidea.herria);
+        printf("\tPosta Kodea: %i\n", pos.ikaslea->helbidea.postakodea);
+        printf("\tTelefonoa: %s\n", pos.ikaslea->helbidea.telefonoa);
+        printf("Gela: %s\n", pos.gelaikas->gelafisikoa);
+        printf("Maila: %s\n", pos.gelaikas->maila);
+        printf("Tutorea: %s\n", pos.gelaikas->tutorea);
 
+    }else{
+        printf("Ikaslea ez da aurkitu\n");
+    }
+    printf("Sakau tekla bat jarraitzeko\n");
+    getchar();
+    fpurge(stdin);
+}
 #endif
