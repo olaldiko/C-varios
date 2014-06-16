@@ -76,7 +76,7 @@ void menueskolanagusia(ESKOLA_t *eskola){
 void menuidazk(ESKOLA_t **eskola){
 	int aukera=0;
 	GELA_t *gela;
-	while(aukera != 8){
+	while(aukera != 9){
 		system("clear");
 		printf("******************************************\n");
 		printf("** 1-Ikasle bat sartu                   **\n");
@@ -86,7 +86,8 @@ void menuidazk(ESKOLA_t **eskola){
 		printf("** 5-Ikasle bat kendu                   **\n");
 		printf("** 6-Gela bateko datuak modifikatu      **\n");
 		printf("** 7-Gela bateko ikasle guztiak ikusi   **\n");
-		printf("** 8-Irten                              **\n");
+        printf("** 8-Erabiltzaile bat sortu             **\n");
+		printf("** 9-Irten                              **\n");
 		printf("******************************************\n");
 		scanf("%i", &aukera);
 		fflush(stdin);
@@ -117,10 +118,11 @@ void menuidazk(ESKOLA_t **eskola){
 				gela = aukeratugela((*eskola));
 				bistaratunotakgela(gela);
 				break;
-			case 8:
-				printf("Irtetzen...");
-                //Datuak gorde
-				break;
+            case 8:
+                sortuerabiltzaile(&(*eskola)->erabiltzaileak);
+            case 9:
+                printf("Irtetzen...");
+                eskolagorde((*eskola), (*eskola)->idesk);
 			default:
 				printf("Zure aukera ez dago eskuragarri, saiatu berriz");
 				break;
@@ -160,7 +162,7 @@ void menuirakasle(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
                 
 			case 4:
 				printf("Programatik ateratzea erabaki duzu\n");
-				// Datuak Gorde
+				eskolagorde(eskola, eskola->idesk);
 				break;
                 
 			default:
@@ -208,7 +210,7 @@ void notaksartumenu(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
         ikasgaia->nota = notaksartu();
     }
 }
-void menuadmin(INDIZEA_t **indizea, int *eskolakop){
+void menuadmin(INDIZEA_t **indizea, int *idesk, ESKOLA_t **eskola){
     char erabiltzailea[50];
     char pasahitza[50];
     int aukera = 0;
@@ -234,16 +236,20 @@ void menuadmin(INDIZEA_t **indizea, int *eskolakop){
     }while((aukera < 0)&&(aukera > 2));
     switch (aukera) {
         case 1:
-           sortueskola(indizea, eskolakop);
+           sortueskola(indizea, eskola, idesk);
+            indizeagorde((*indizea), idesk);
+            eskolagorde((*eskola), (*eskola)->idesk);
+            free((*eskola));
+            eskola = NULL;
             break;
         case 2:
-          //  borratueskola(indizea, eskolakop);
+            borratueskola(indizea, idesk);
             break;
         default:
             break;
     }
 }
-void menunagusia(INDIZEA_t *indizea, int *eskolakop){
+void menunagusia(INDIZEA_t *indizea, int *idesk){
     int aukera = 0;
     INDIZEA_t *eskolaindex;
     ESKOLA_t *eskola;
@@ -261,11 +267,11 @@ void menunagusia(INDIZEA_t *indizea, int *eskolakop){
     switch (aukera) {
         case 1:
             eskolaindex = aukeratueskola(indizea);
-            //eskola = kargatueskola(eskolaindex);
+            eskolairakurri(&eskola, eskolaindex->idesk);
             menueskolanagusia(eskola);
             break;
         case 2:
-            menuadmin(&indizea, eskolakop);
+            menuadmin(&indizea, idesk, &eskola);
         default:
             break;
     }

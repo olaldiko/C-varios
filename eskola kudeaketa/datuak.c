@@ -25,14 +25,12 @@ void indizeagorde(INDIZEA_t *indizea, int *idesk){
 }
 void eskolagorde(ESKOLA_t *eskola, int idesk){
     struct stat st = {0};
-    ESKOLA_t *eskolaux;
     FILE *eskolafitx;
     char fitxategia[50];
     eskola->idesk = idesk;
-    for (eskolaux = eskola; eskolaux != NULL; eskolaux = eskolaux->hurrengoa) { //A revisar, solo habra cargada una en cada momento
         sprintf(fitxategia, "./e%ie.csv", idesk);
         eskolafitx = fopen(fitxategia, "w");
-        fprintf(eskolafitx, "%s;%i;%i\n", eskolaux->izena, eskolaux->idikasle, eskolaux->iderabil);
+        fprintf(eskolafitx, "%s;%i;%i\n", eskola->izena, eskola->idikasle, eskola->iderabil);
         fclose(eskolafitx);
         sprintf(fitxategia, "./e%ie", eskola->idesk);
         if(stat(fitxategia, &st) == -1){
@@ -40,7 +38,6 @@ void eskolagorde(ESKOLA_t *eskola, int idesk){
         }
         erabiltzaileakgorde(eskola);
         gelakgorde(eskola);
-    }
 }
 void erabiltzaileakgorde(ESKOLA_t *eskola){
     ERABILTZAILE_t *erabiltzailea;
@@ -124,11 +121,11 @@ void indizeairakurri(INDIZEA_t **indizea, int *idesk){
     if (!indexfitx) {
         printf("Ezin izan da fitxategia irakurri");
     }else{
-    fscanf(indexfitx, "%i\n", idesk);
+    fscanf(indexfitx, "%i%*[^\n]", idesk);
     berria = calloc(1, sizeof(INDIZEA_t));
     (*indizea) = berria;
     while (!feof(indexfitx)) {
-        fscanf(indexfitx, "%s;%i\n", berria->izena, &berria->idesk);
+        fscanf(indexfitx, "%s;%i%*[^\n]", berria->izena, &berria->idesk);
         if (!feof(indexfitx)) {
         berria->hurrengoa = calloc(1, sizeof(INDIZEA_t));
         berria = berria->hurrengoa;
@@ -143,7 +140,7 @@ void eskolairakurri(ESKOLA_t **eskola, int idesk){
     sprintf(fitxategia, "./e%ie.csv", idesk);
     eskolafitx = fopen(fitxategia, "r");
     berria = calloc(1, sizeof(ESKOLA_t));
-    fscanf(eskolafitx, "%s;%i;%i\n", berria->izena, &berria->idikasle, &berria->iderabil);
+    fscanf(eskolafitx, "%s;%i;%i%*[^\n]", berria->izena, &berria->idikasle, &berria->iderabil);
     fclose(eskolafitx);
     (*eskola) = berria;
 
@@ -159,9 +156,9 @@ void erabiltzaileakirakurri(ESKOLA_t *eskola){
     }else{
         erabiltzailea = calloc(1, sizeof(ERABILTZAILE_t));
         eskola->erabiltzaileak = erabiltzailea;
-        fscanf(erabiltzailefitx, "\n");
+        fscanf(erabiltzailefitx, "%*[^\n]");
         while (!feof(erabiltzailefitx)){
-            fscanf(erabiltzailefitx, "%s;%s;%s;%i;%s;%i\n", erabiltzailea->izena, erabiltzailea->abizena, erabiltzailea->pasahitza, &erabiltzailea->sartuda, erabiltzailea->ida, &erabiltzailea->mota);
+            fscanf(erabiltzailefitx, "%s;%s;%s;%i;%s;%i%*[^\n]", erabiltzailea->izena, erabiltzailea->abizena, erabiltzailea->pasahitza, &erabiltzailea->sartuda, erabiltzailea->ida, &erabiltzailea->mota);
             if (!feof(erabiltzailefitx)) {
                 erabiltzailea->hurrengoa = calloc(1, sizeof(ERABILTZAILE_t));
                 erabiltzailea = erabiltzailea->hurrengoa;
@@ -181,9 +178,9 @@ void gelakirakurri(ESKOLA_t *eskola){
     }else{
         gela = calloc(1, sizeof(GELA_t));
         eskola->gelak = gela;
-        fscanf(gelafitx, "\n");
+        fscanf(gelafitx, "%*[^\n]");
         while (!feof(gelafitx)) {
-            fscanf(gelafitx, "%i;%s;%i;%s;%s\n", &gela->idgela, gela->maila, &gela->ikasle_kop, gela->gelafisikoa, gela->tutorea);
+            fscanf(gelafitx, "%i;%s;%i;%s;%s%*[^\n]", &gela->idgela, gela->maila, &gela->ikasle_kop, gela->gelafisikoa, gela->tutorea);
             if (!feof(gelafitx)) {
                 gela->hurrengoa = calloc(1, sizeof(GELA_t));
                 gela = gela->hurrengoa;
@@ -201,13 +198,13 @@ void ikasleakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzaileak){
     if (!ikaslefitx) {
         printf("Ez da fitxategia aurkitu\n");
     }else{
-        fscanf(ikaslefitx, "\n");
+        fscanf(ikaslefitx, "%*[^\n]");
         ikaslea = calloc(1, sizeof(IKASLE_t));
         gela->ikasleak = ikaslea;
         while (!feof(ikaslefitx)) {
             fscanf(ikaslefitx, "%i;%s;%s;", &ikaslea->idal, ikaslea->izena, ikaslea->abizenak);
             fscanf(ikaslefitx, "%s;%i;%s;%s;%i;%s;", ikaslea->helbidea.kalea, &ikaslea->helbidea.zenbakia, ikaslea->helbidea.pisua, ikaslea->helbidea.herria, &ikaslea->helbidea.postakodea, ikaslea->helbidea.telefonoa);
-            fscanf(ikaslefitx, "%i;%i;%i\n", &ikaslea->jaiotza.eguna, &ikaslea->jaiotza.hilabetea, &ikaslea->jaiotza.urtea);
+            fscanf(ikaslefitx, "%i;%i;%i%*[^\n]", &ikaslea->jaiotza.eguna, &ikaslea->jaiotza.hilabetea, &ikaslea->jaiotza.urtea);
             if (!feof(ikaslefitx)) {
                 ikaslea->hurrengoa = calloc(1, sizeof(IKASLE_t));
                 ikaslea = ikaslea->hurrengoa;
@@ -226,11 +223,11 @@ void stdikasgaiakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzailea
     if (!ikasgaifitx) {
         printf("Ezin izan da fitxategia irakurri\n");
     }else{
-        fscanf(ikasgaifitx, "\n");
+        fscanf(ikasgaifitx, "%*[^\n]");
         ikasgaia = calloc(1, sizeof(IKASGAI_t));
         gela->stdikasgaiak = ikasgaia;
         while (!feof(ikasgaifitx)) {
-            fscanf(ikasgaifitx, "%s;%s\n", ikasgaia->izena, irakasid);
+            fscanf(ikasgaifitx, "%s;%s%*[^\n]", ikasgaia->izena, irakasid);
             //ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
             if (!feof(ikasgaifitx)) {
                 ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
@@ -250,11 +247,11 @@ void ikasgaiakirakurri(IKASLE_t *ikaslea, int idesk, int idgela, ERABILTZAILE_t 
     if (!ikasgaifitx) {
         printf("Ez da fitxategia aurkitu\n");
     }else{
-        fscanf(ikasgaifitx, "\n");
+        fscanf(ikasgaifitx, "%*[^\n]");
         ikasgaia = calloc(1, sizeof(IKASGAI_t));
         ikaslea->ikasgaiak = ikasgaia;
         while (!feof(ikasgaifitx)) {
-            fscanf(ikasgaifitx, "%s;%f;%s\n", ikasgaia->izena, &ikasgaia->nota, irakasid);
+            fscanf(ikasgaifitx, "%s;%f;%s%*[^\n]", ikasgaia->izena, &ikasgaia->nota, irakasid);
             //ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
             if (!feof(ikasgaifitx)) {
                 ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));

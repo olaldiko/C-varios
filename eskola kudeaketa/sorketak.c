@@ -6,6 +6,7 @@
 #include "egiturak.h"
 #include "bestelakoak.h"
 #include "menuak.h"
+#include "sorketak.h"
 
 void sortuikasle(ESKOLA_t **eskola){
 	IKASLE_t *ikaslea;
@@ -63,16 +64,14 @@ void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 		fpurge(stdin);
     ikasgaiberri->irakaslea = aukeratuirakasle(erabiltzaileak);
 }
-void sortueskola(INDIZEA_t **indizea, int *eskolakop){
+void sortueskola(INDIZEA_t **indizea, ESKOLA_t **eskola, int *idesk){
     INDIZEA_t *berria;
-    //FILE *eskolafitx;
     ESKOLA_t *eskolaberri;
     if ((*indizea) == NULL) {
         (*indizea) = calloc(1, sizeof(INDIZEA_t));
         berria = (*indizea);
     }else{
     for(berria = (*indizea); berria->hurrengoa != NULL; berria = berria ->hurrengoa);
-    
     berria->hurrengoa = calloc(1, sizeof(INDIZEA_t));
     berria = berria->hurrengoa;
     }
@@ -82,16 +81,47 @@ void sortueskola(INDIZEA_t **indizea, int *eskolakop){
     gets(berria->izena);
     fpurge(stdin);
     strcpy(eskolaberri->izena, berria->izena);
-    printf("Sartu eskolaren IDa:\n");
-    scanf("%i", &berria->idesk);
-    fpurge(stdin);
+    berria->idesk = *idesk;
     eskolaberri->idesk = berria->idesk;
-    printf("Sartu eskola berriaren fitxategiaren izena:\n");
-    //gets(berria->fitxategia);
-    //fpurge(stdin);
-    //eskolafitx = fopen(berria->fitxategia, "wb");
-   // fwrite(eskolaberri, sizeof(eskolaberri), 1, eskolafitx);
-    (*eskolakop)++;
+    printf("Eskola berriaren IDa %i da\n", *idesk);
+    printf("Sakatu tekla bat jarraitzeko\n");
+    getchar();
+    fpurge(stdin);
+    sortuerabiltzaile(&eskolaberri->erabiltzaileak);
+    (*idesk)++;
     
+}
+void sortuerabiltzaile(ERABILTZAILE_t **erabiltzaileak){
+    ERABILTZAILE_t *berria;
+    int init = 0;
+    int aukera = 0;
+    if((*erabiltzaileak) == NULL){
+        berria = calloc(1, sizeof(ERABILTZAILE_t));
+        (*erabiltzaileak) = berria;
+        init = 1;
+    }else{
+        for (berria = (*erabiltzaileak); berria->hurrengoa != NULL; berria = berria ->hurrengoa) {
+        };
+        berria->hurrengoa = calloc(1, sizeof(ERABILTZAILE_t));
+        berria = berria->hurrengoa;
+    }
+    if (init == 1) {
+        printf("Adi! Lehenengo erabiltzailea denez, hau idazkaria izango da\n");
+    }
+    printf("Sartu erabiltzaile berriaren izena:\n");
+    gets(berria->izena);
+    printf("Sartu erabiltzaile berriaren abizena:\n");
+    gets(berria->abizena);
+    sortuerabiltzaileid(berria);
+    if (init == 1) {
+        berria->mota = 1;
+    }else{
+        do{
+            printf("Aukeratu erabiltzailearen mota:\n1. Idazkaria\n2. Irakaslea\n");
+            scanf("%i", &aukera);
+            fpurge(stdin);
+        }while((aukera < 1)||(aukera > 2));
+        berria->mota = aukera;
+    }
 }
 #endif

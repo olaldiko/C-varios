@@ -3,4 +3,5 @@
 #include "egiturak.h"
 void borratugela(ESKOLA_t *);
 void borratuikasle(ESKOLA_t *);
+void borratueskola(INDIZEA_t **, int *);
 #endif

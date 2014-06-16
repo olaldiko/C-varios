@@ -84,7 +84,7 @@ GELA_t *aukeratugela(ESKOLA_t *eskola){
 	scanf("%i", &aukera);
 	fpurge(stdin);
 	}while((aukera < 0)&&(aukera > kont));
-	for(i = 0, gela = eskola->gelak ; i <= kont ; gela = gela->hurrengoa , i++);
+	for(i = 0, gela = eskola->gelak ; (i <= kont)&&(gela != NULL) ; gela = gela->hurrengoa , i++);
 	return gela;
 }
 }
@@ -110,7 +110,7 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
             scanf("%i", &aukera);
             fpurge(stdin);
         }while((aukera < 0)&&(aukera > kont));
-        for(i = 0, irakaslea = erabiltzaileak ; i <= kont ; irakaslea = irakaslea->hurrengoa , i++);
+        for(i = 0, irakaslea = erabiltzaileak ; (i <= kont)&&(irakaslea != NULL) ; irakaslea = irakaslea->hurrengoa , i++);
         return irakaslea;
     }
 }
@@ -222,9 +222,18 @@ INDIZEA_t *aukeratueskola(INDIZEA_t *indizea){
             scanf("%i", &aukera);
             fpurge(stdin);
         }while((aukera < 0)&&(aukera > kont));
-        for(i = 0, eskola = indizea ; i <= kont ; eskola = eskola->hurrengoa , i++);
+        for(i = 0, eskola = indizea ; (i <= kont)&&(eskola != NULL) ; eskola = eskola->hurrengoa , i++);
         return eskola;
     }
     
+}
+void sortuerabiltzaileid(ERABILTZAILE_t *erabiltzailea){
+    char iderabil[50];
+    strncat(iderabil, erabiltzailea->izena, 6);
+    strncat(iderabil, erabiltzailea->abizena, 8);
+    printf("Erabiltzaile ID berria ---%s--- da (Sakatu enter jarritzeko)\n", iderabil);
+    getchar();
+    fpurge(stdin);
+    strcpy(erabiltzailea->ida, iderabil);
 }
 #endif

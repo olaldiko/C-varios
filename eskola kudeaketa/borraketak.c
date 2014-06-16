@@ -5,6 +5,7 @@
 #include "borraketak.h"
 #include "egiturak.h"
 #include "bestelakoak.h"
+#include "datuak.h"
 
 void borratugela(ESKOLA_t *eskola){
 	GELA_t *gela;
@@ -57,5 +58,21 @@ void borratuikasle(ESKOLA_t *eskola){
         free(pos.ikaslea);
         pos.gelaikas->ikasle_kop--;
     }
+}
+void borratueskola(INDIZEA_t **indizea, int *idesk){
+    INDIZEA_t *eskolaind;
+    INDIZEA_t *hasiera;
+    char fitxategia[50];
+    eskolaind = aukeratueskola((*indizea));
+    if  (eskolaind == (*indizea)){
+        (*indizea) = (*indizea)->hurrengoa;
+    }else{
+        for (hasiera = (*indizea); hasiera->hurrengoa != eskolaind; hasiera = hasiera ->hurrengoa);
+        hasiera->hurrengoa = eskolaind->hurrengoa;
+    }
+    sprintf(fitxategia, "rm -r \"./e%ie\"", eskolaind->idesk); //Utilizar system y rm es una guarrada, lo se... con mas tiempo hago una recursiva con remove();
+    system(fitxategia);
+    free(eskolaind);
+    indizeagorde((*indizea), idesk);
 }
 #endif
