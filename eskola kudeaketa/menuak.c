@@ -258,7 +258,7 @@ void menunagusia(INDIZEA_t *indizea, int *idesk){
         printf("-------------------Ongi etorri eskola kudeaketa programara-----------------\n");
         printf("1. Sartu erabiltzaile normal gisa\n");
         printf("2. Sartu administratzaile gisa\n");
-        printf("0. Irten");
+        printf("0. Irten\n");
         printf("---------------------------------------------------------------------------\n");
         printf("Aukera: ");
         scanf("%i", &aukera);

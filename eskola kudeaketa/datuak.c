@@ -14,6 +14,7 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 #include "datuak.h"
+#include "bestelakoak.h"
 void indizeagorde(INDIZEA_t *indizea, int *idesk){
     FILE *index;
     index = fopen("indizea.csv", "w");
@@ -36,8 +37,12 @@ void eskolagorde(ESKOLA_t *eskola, int idesk){
         if(stat(fitxategia, &st) == -1){
             mkdir(fitxategia, 0770);
         }
+    if (eskola->erabiltzaileak != NULL) {
         erabiltzaileakgorde(eskola);
+    }
+    if (eskola->gelak != NULL) {
         gelakgorde(eskola);
+    }
 }
 void erabiltzaileakgorde(ESKOLA_t *eskola){
     ERABILTZAILE_t *erabiltzailea;
@@ -65,7 +70,12 @@ void gelakgorde(ESKOLA_t *eskola){
         if(stat(fitxategia, &st) == -1){
             mkdir(fitxategia, 0770);
         }
-        ikasleakgorde(gela, eskola->idesk);
+        if (gela->ikasleak != NULL){
+            ikasleakgorde(gela, eskola->idesk);
+        }
+        if (gela->stdikasgaiak != NULL){
+            stdikasgaiakgorde(gela, eskola->idesk);
+        }
     }
     fclose(gelafitx);
 }
@@ -85,7 +95,9 @@ void ikasleakgorde(GELA_t *gela, int idesk){
         if(stat(fitxategia, &st) == -1){
             mkdir(fitxategia, 0770);
         }
+        if (ikaslea->ikasgaiak != NULL){
         ikasgaiakgorde(ikaslea, idesk, gela->idgela);
+        }
     }
     fclose(ikaslefitx);
 }
@@ -181,6 +193,8 @@ void gelakirakurri(ESKOLA_t *eskola){
         fscanf(gelafitx, "%*[^\n]");
         while (!feof(gelafitx)) {
             fscanf(gelafitx, "%i;%s;%i;%s;%s%*[^\n]", &gela->idgela, gela->maila, &gela->ikasle_kop, gela->gelafisikoa, gela->tutorea);
+            stdikasgaiakirakurri(gela, eskola->idesk, eskola->erabiltzaileak);
+            ikasleakirakurri(gela, eskola->idesk, eskola->erabiltzaileak);
             if (!feof(gelafitx)) {
                 gela->hurrengoa = calloc(1, sizeof(GELA_t));
                 gela = gela->hurrengoa;
@@ -205,6 +219,7 @@ void ikasleakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzaileak){
             fscanf(ikaslefitx, "%i;%s;%s;", &ikaslea->idal, ikaslea->izena, ikaslea->abizenak);
             fscanf(ikaslefitx, "%s;%i;%s;%s;%i;%s;", ikaslea->helbidea.kalea, &ikaslea->helbidea.zenbakia, ikaslea->helbidea.pisua, ikaslea->helbidea.herria, &ikaslea->helbidea.postakodea, ikaslea->helbidea.telefonoa);
             fscanf(ikaslefitx, "%i;%i;%i%*[^\n]", &ikaslea->jaiotza.eguna, &ikaslea->jaiotza.hilabetea, &ikaslea->jaiotza.urtea);
+            ikasgaiakirakurri(ikaslea, idesk, gela->idgela, erabiltzaileak);
             if (!feof(ikaslefitx)) {
                 ikaslea->hurrengoa = calloc(1, sizeof(IKASLE_t));
                 ikaslea = ikaslea->hurrengoa;
@@ -228,7 +243,7 @@ void stdikasgaiakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzailea
         gela->stdikasgaiak = ikasgaia;
         while (!feof(ikasgaifitx)) {
             fscanf(ikasgaifitx, "%s;%s%*[^\n]", ikasgaia->izena, irakasid);
-            //ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
+            ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
             if (!feof(ikasgaifitx)) {
                 ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
                 ikasgaia = ikasgaia->hurrengoa;
@@ -252,7 +267,7 @@ void ikasgaiakirakurri(IKASLE_t *ikaslea, int idesk, int idgela, ERABILTZAILE_t 
         ikaslea->ikasgaiak = ikasgaia;
         while (!feof(ikasgaifitx)) {
             fscanf(ikasgaifitx, "%s;%f;%s%*[^\n]", ikasgaia->izena, &ikasgaia->nota, irakasid);
-            //ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
+            ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
             if (!feof(ikasgaifitx)) {
                 ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
                 ikasgaia = ikasgaia->hurrengoa;

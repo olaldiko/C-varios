@@ -13,4 +13,5 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *);
 INDIZEA_t *aukeratueskola(INDIZEA_t *);
 IKASGAI_t *aukeratuikasgai(IKASGAI_t *, ERABILTZAILE_t *);
 void sortuerabiltzaileid(ERABILTZAILE_t *);
+ERABILTZAILE_t *aurkituerabiltzaile(ERABILTZAILE_t *, char []);
 #endif

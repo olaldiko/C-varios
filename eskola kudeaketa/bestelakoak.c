@@ -236,4 +236,8 @@ void sortuerabiltzaileid(ERABILTZAILE_t *erabiltzailea){
     fpurge(stdin);
     strcpy(erabiltzailea->ida, iderabil);
 }
+ERABILTZAILE_t *aurkituerabiltzaile(ERABILTZAILE_t *erabiltzaileak, char iderabil[]){
+    for (; ((strcmp(erabiltzaileak->ida, iderabil)!= 0)&&(erabiltzaileak != NULL)); erabiltzaileak = erabiltzaileak->hurrengoa);
+    return erabiltzaileak;
+    }
 #endif

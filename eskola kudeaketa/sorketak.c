@@ -89,6 +89,7 @@ void sortueskola(INDIZEA_t **indizea, ESKOLA_t **eskola, int *idesk){
     fpurge(stdin);
     sortuerabiltzaile(&eskolaberri->erabiltzaileak);
     (*idesk)++;
+    (*eskola) = eskolaberri;
     
 }
 void sortuerabiltzaile(ERABILTZAILE_t **erabiltzaileak){
@@ -113,6 +114,10 @@ void sortuerabiltzaile(ERABILTZAILE_t **erabiltzaileak){
     printf("Sartu erabiltzaile berriaren abizena:\n");
     gets(berria->abizena);
     sortuerabiltzaileid(berria);
+    do{
+    printf("Sartu erabiltzailearen pasahitza(8 karaktere gutxienez:\n");
+    gets(berria->pasahitza);
+    }while (strlen(berria->pasahitza) < 8);
     if (init == 1) {
         berria->mota = 1;
     }else{
