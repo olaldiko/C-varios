@@ -162,7 +162,7 @@ void mugituikasle(ESKOLA_t **eskola){
     for(ikaslesrc = posizioa.ikaslea; ikaslesrc->hurrengoa == posizioa.ikaslea; ikaslesrc = ikaslesrc->hurrengoa);
     ikaslesrc->hurrengoa = NULL;
         posizioa.gelaikas->ikasle_kop--;
-        for(ikasledest = geladest->ikasleak;ikasledest->hurrengoa; ikasledest = ikasledest->hurrengoa);
+        for(ikasledest = geladest->ikasleak;ikasledest->hurrengoa != NULL; ikasledest = ikasledest->hurrengoa);
         ikasledest->hurrengoa = posizioa.ikaslea;
         geladest->ikasle_kop++;
         

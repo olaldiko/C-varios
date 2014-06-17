@@ -94,7 +94,7 @@ void menuidazk(ESKOLA_t **eskola){
 		printf("** 7-Gela bateko datuak modifikatu      **\n");
 		printf("** 8-Gela bateko ikasle guztiak ikusi   **\n");
         printf("** 9-Erabiltzaile bat sortu             **\n");
-		printf("** 10-Irten                              **\n");
+		printf("** 10-Irten                             **\n");
 		printf("******************************************\n");
 		scanf("%i", &aukera);
 		fpurge(stdin);
