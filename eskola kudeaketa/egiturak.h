@@ -55,6 +55,7 @@ typedef struct ESKOLA{
 	int idikasle;
     struct ERABILTZAILE *erabiltzaileak;
     int iderabil;
+    int idgela;
 	struct ESKOLA *hurrengoa;
 }ESKOLA_t;
 typedef struct INDIZEA{

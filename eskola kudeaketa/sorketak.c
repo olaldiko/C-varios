@@ -12,20 +12,30 @@ void sortuikasle(ESKOLA_t **eskola){
 	IKASLE_t *ikaslea;
 	GELA_t *gela;
 	gela = aukeratugela(*eskola);
-	ikaslea = gela->ikasleak;
-	while(ikaslea != NULL){
-		ikaslea = ikaslea->hurrengoa;
-	}
-	ikaslea = (IKASLE_t*)calloc(1, sizeof(IKASLE_t));
+    if (gela != NULL) {
+        if (gela->ikasleak == NULL) {
+            gela->ikasleak = calloc(1, sizeof(IKASLE_t));
+            ikaslea = gela->ikasleak;
+        }else{
+            ikaslea = gela->ikasleak;
+            while(ikaslea->hurrengoa != NULL){
+                ikaslea = ikaslea->hurrengoa;
+            }
+            ikaslea->hurrengoa = calloc(1, sizeof(IKASLE_t));
+            ikaslea = ikaslea->hurrengoa;
+        }
+    ikaslea->idal = (*eskola)->idikasle;
 	printf("Mesedez, sartu ikaslearen izena\n");
 	gets(ikaslea->izena);
 	fpurge(stdin);
-	printf("Sartu ikaslearen abizenak");
+	printf("Sartu ikaslearen abizenak\n");
 	gets(ikaslea->abizenak);
     fpurge(stdin);
 	ikaslea->helbidea = helbideasartu();
 	ikaslea->jaiotza = jaiotzasartu();
 	kopiatuikasgai(gela, &ikaslea->ikasgaiak);
+    (*eskola)->idikasle++;
+    }
 }
 void sortugela(ESKOLA_t **eskola){
 	GELA_t *gelaberri;
@@ -41,6 +51,8 @@ void sortugela(ESKOLA_t **eskola){
 	printf("Sartu gelaren maila:\n");
 	gets(gelaberri->maila);
     fpurge(stdin);
+    gelaberri->idgela = (*eskola)->idgela;
+    (*eskola)->idgela++;
 	menusortuikasgai(&gelaberri->stdikasgaiak, (*eskola)->erabiltzaileak);
 	if((*eskola)->gelak == NULL){
 		(*eskola)->gelak = gelaberri;

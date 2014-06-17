@@ -124,6 +124,7 @@ void modifikatugela(ESKOLA_t **eskola){
 	int aukera = 0;
 	GELA_t *gela;
 	gela = aukeratugela((*eskola));
+    if (gela != NULL) {
 	while (aukera != 3){
 		system("clear");
 		printf("Ze datu aldatu nahi duzu?\n");
@@ -145,6 +146,7 @@ void modifikatugela(ESKOLA_t **eskola){
 				break;
 		}
 	}
+    }
 }
 void mugituikasle(ESKOLA_t **eskola){
     int idal;

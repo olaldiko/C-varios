@@ -29,10 +29,9 @@ void eskolagorde(ESKOLA_t *eskola, int idesk){
     struct stat st = {0};
     FILE *eskolafitx;
     char fitxategia[50];
-    eskola->idesk = idesk;
-        sprintf(fitxategia, "./e%ie.csv", idesk);
+        sprintf(fitxategia, "./e%ie.csv", eskola->idesk);
         eskolafitx = fopen(fitxategia, "w");
-        fprintf(eskolafitx, "%s;%i;%i\n", eskola->izena, eskola->idikasle, eskola->iderabil);
+        fprintf(eskolafitx, "%s;%i;%i;%i\n", eskola->izena, eskola->idikasle, eskola->iderabil, eskola->idgela);
         fclose(eskolafitx);
         sprintf(fitxategia, "./e%ie", eskola->idesk);
         if(stat(fitxategia, &st) == -1){
@@ -106,11 +105,17 @@ void stdikasgaiakgorde(GELA_t *gela, int idesk){
     IKASGAI_t *ikasgaia;
     FILE *ikasgaifitx;
     char fitxategia[70];
+    char irakasid[20];
     sprintf(fitxategia, "./e%ie/g%ig/g%istdikas.csv", idesk, gela->idgela, gela->idgela);
     ikasgaifitx = fopen(fitxategia, "w");
     fprintf(ikasgaifitx, "Izena\tIrakaslea\n");
     for (ikasgaia = gela->stdikasgaiak; ikasgaia != NULL; ikasgaia = ikasgaia->hurrengoa) {
-        fprintf(ikasgaifitx, "%s;%s\n", ikasgaia->izena, ikasgaia->irakaslea->ida);
+        if (ikasgaia->irakaslea == NULL) {
+            strcpy(irakasid, "--");
+        }else{
+            strcpy(irakasid, ikasgaia->irakaslea->ida);
+        }
+        fprintf(ikasgaifitx, "%s;%s\n", ikasgaia->izena, irakasid);
     }
     fclose(ikasgaifitx);
 }
@@ -118,11 +123,17 @@ void ikasgaiakgorde(IKASLE_t *ikaslea, int idesk, int idgela){
     IKASGAI_t *ikasgaia;
     FILE *ikasgaifitx;
     char fitxategia[70];
+    char irakasid[20];
     sprintf(fitxategia, "./e%ie/g%ig/i%ii/i%iiikasgaiak.csv", idesk, idgela, ikaslea->idal, ikaslea->idal);
     ikasgaifitx = fopen(fitxategia, "w");
     fprintf(ikasgaifitx, "Izena\tNota\tIrakaslea\n");
     for (ikasgaia = ikaslea->ikasgaiak; ikasgaia != NULL; ikasgaia = ikasgaia->hurrengoa) {
-        fprintf(ikasgaifitx, "%s;%f;%s\n", ikasgaia->izena, ikasgaia->nota, ikasgaia->irakaslea->ida);
+        if (ikasgaia->irakaslea == NULL) {
+            strcpy(irakasid, "--");
+        }else{
+            strcpy(irakasid, ikasgaia->irakaslea->ida);
+        }
+        fprintf(ikasgaifitx, "%s;%f;%s\n", ikasgaia->izena, ikasgaia->nota, irakasid);
     }
     fclose(ikasgaifitx);
 }
@@ -130,20 +141,29 @@ void ikasgaiakgorde(IKASLE_t *ikaslea, int idesk, int idgela){
 void indizeairakurri(INDIZEA_t **indizea, int *idesk){
     FILE *indexfitx;
     INDIZEA_t *berria;
+    char bufferra[150];
+    char *tokena;
     indexfitx = fopen("indizea.csv", "r");
     if (!indexfitx) {
         printf("Ezin izan da fitxategia irakurri");
     }else{
-    fscanf(indexfitx, "%i%*[^\n]", idesk);
-    berria = calloc(1, sizeof(INDIZEA_t));
-    (*indizea) = berria;
-    while (!feof(indexfitx)) {
-        fscanf(indexfitx, "%s;%i%*[^\n]", berria->izena, &berria->idesk);
-        if (!feof(indexfitx)) {
-        berria->hurrengoa = calloc(1, sizeof(INDIZEA_t));
-        berria = berria->hurrengoa;
+        fgets(bufferra, 150, indexfitx);
+        tokena = strtok(bufferra, "\n");
+        *idesk = atoi(tokena);
+    while (fgets(bufferra, 150, indexfitx)) {
+        if ((*indizea) == NULL) {
+            berria = calloc(1, sizeof(INDIZEA_t));
+            (*indizea) = berria;
+        }else{
+            berria->hurrengoa = calloc(1, sizeof(INDIZEA_t));
+            berria = berria->hurrengoa;
         }
-    }
+        tokena = strtok(bufferra, ";\n");
+        strcpy(berria->izena, tokena);
+        tokena = strtok(NULL, ";\n");
+        berria->idesk = atoi(tokena);
+        }
+        fclose(indexfitx);
     }
 }
 void eskolairakurri(ESKOLA_t **eskola, int idesk){
@@ -163,7 +183,12 @@ void eskolairakurri(ESKOLA_t **eskola, int idesk){
         berria->idikasle = atoi(tokena);
         tokena = strtok(NULL, TOK);
         berria->iderabil = atoi(tokena);
+        tokena = strtok(NULL, TOK);
+        berria->idgela = atoi(tokena);
+        berria->idesk = idesk;
     fclose(eskolafitx);
+        erabiltzaileakirakurri(berria);
+        gelakirakurri(berria);
     (*eskola) = berria;
     }
 
@@ -177,13 +202,17 @@ void erabiltzaileakirakurri(ESKOLA_t *eskola){
     sprintf(fitxategia, "./e%ie/e%ierabil.csv", eskola->idesk, eskola->idesk);
     erabiltzailefitx = fopen(fitxategia, "r");
     if (!erabiltzailefitx) {
-        printf("Ezin izan da fitxategia irakurri");
+        printf("--noera--\n");
     }else{
-        erabiltzailea = calloc(1, sizeof(ERABILTZAILE_t));
-        eskola->erabiltzaileak = erabiltzailea;
-        fscanf(erabiltzailefitx, "%*[^\n]");
-        while (!feof(erabiltzailefitx)){
-            fgets(bufferra, 200, erabiltzailefitx);
+        fgets(bufferra, 200, erabiltzailefitx);
+        while (fgets(bufferra, 200, erabiltzailefitx)){
+            if (eskola->erabiltzaileak == NULL) {
+                erabiltzailea = calloc(1, sizeof(ERABILTZAILE_t));
+                eskola->erabiltzaileak = erabiltzailea;
+            }else{
+                erabiltzailea->hurrengoa = calloc(1, sizeof(ERABILTZAILE_t));
+                erabiltzailea = erabiltzailea->hurrengoa;
+            }
             tokena = strtok(bufferra, TOK);
             strcpy(erabiltzailea->izena, tokena);
             tokena = strtok(NULL, TOK);
@@ -191,11 +220,12 @@ void erabiltzaileakirakurri(ESKOLA_t *eskola){
             tokena = strtok(NULL, TOK);
             strcpy(erabiltzailea->pasahitza, tokena);
             tokena = strtok(NULL, TOK);
+            erabiltzailea->sartuda = atoi(tokena);
+            tokena = strtok(NULL, TOK);
+            strcpy(erabiltzailea->ida, tokena);
+            tokena = strtok(NULL, TOK);
+            erabiltzailea->mota = atoi(tokena);
             //fscanf(erabiltzailefitx, "%s;%s;%s;%i;%s;%i%*[^\n]", erabiltzailea->izena, erabiltzailea->abizena, erabiltzailea->pasahitza, &erabiltzailea->sartuda, erabiltzailea->ida, &erabiltzailea->mota);
-            if (!feof(erabiltzailefitx)) {
-                erabiltzailea->hurrengoa = calloc(1, sizeof(ERABILTZAILE_t));
-                erabiltzailea = erabiltzailea->hurrengoa;
-            }
         }
         fclose(erabiltzailefitx);
     }
@@ -209,13 +239,17 @@ void gelakirakurri(ESKOLA_t *eskola){
     sprintf(fitxategia, "./e%ie/e%igelak.csv", eskola->idesk, eskola->idesk);
     gelafitx = fopen(fitxategia, "r");
     if (!gelafitx) {
-        printf("Ezin izan da gela irakurri");
+        printf("--nogela--\n");
     }else{
-        gela = calloc(1, sizeof(GELA_t));
-        eskola->gelak = gela;
-        fscanf(gelafitx, "%*[^\n]");
-        while (!feof(gelafitx)) {
-            fgets(bufferra, 200, gelafitx);
+        fgets(bufferra, 200, gelafitx);
+        while (fgets(bufferra, 200, gelafitx)) {
+            if (eskola->gelak == NULL) {
+                gela = calloc(1, sizeof(GELA_t));
+                eskola->gelak = gela;
+            }else{
+                gela->hurrengoa = calloc(1, sizeof(GELA_t));
+                gela = gela->hurrengoa;
+            }
             tokena = strtok(bufferra, TOK);
             gela->idgela = atoi(tokena);
             tokena = strtok(NULL, TOK);
@@ -229,10 +263,6 @@ void gelakirakurri(ESKOLA_t *eskola){
             //fscanf(gelafitx, "%i;%s;%i;%s;%s%*[^\n]", &gela->idgela, gela->maila, &gela->ikasle_kop, gela->gelafisikoa, gela->tutorea);
             stdikasgaiakirakurri(gela, eskola->idesk, eskola->erabiltzaileak);
             ikasleakirakurri(gela, eskola->idesk, eskola->erabiltzaileak);
-            if (!feof(gelafitx)) {
-                gela->hurrengoa = calloc(1, sizeof(GELA_t));
-                gela = gela->hurrengoa;
-            }
         }
     fclose(gelafitx);
     }
@@ -241,22 +271,26 @@ void ikasleakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzaileak){
     FILE *ikaslefitx;
     IKASLE_t *ikaslea;
     char fitxategia[70];
-    char buffera[300];
+    char bufferra[300];
     char *tokena;
     sprintf(fitxategia, "./e%ie/g%ig/g%iikasleak.csv", idesk, gela->idgela, gela->idgela);
     ikaslefitx = fopen(fitxategia, "r");
     if (!ikaslefitx) {
-        printf("Ez da fitxategia aurkitu\n");
+        printf("--noikas--\n");
     }else{
-        fscanf(ikaslefitx, "%*[^\n]");
-        ikaslea = calloc(1, sizeof(IKASLE_t));
-        gela->ikasleak = ikaslea;
-        while (!feof(ikaslefitx)) {
-            fgets(buffera, 300, ikaslefitx);
-            tokena = strtok(buffera, TOK);
+        fgets(bufferra, 300, ikaslefitx);
+        while (fgets(bufferra, 300, ikaslefitx)) {
+            if (gela->ikasleak == NULL) {
+                ikaslea = calloc(1, sizeof(IKASLE_t));
+                gela->ikasleak = ikaslea;
+            }else{
+                ikaslea->hurrengoa = calloc(1, sizeof(IKASLE_t));
+                ikaslea = ikaslea->hurrengoa;
+            }
+            tokena = strtok(bufferra, TOK);
             ikaslea->idal = atoi(tokena);
             tokena = strtok(NULL, TOK);
-            strcpy(ikaslea->izena, buffera);
+            strcpy(ikaslea->izena, tokena);
             tokena = strtok(NULL, TOK);
             strcpy(ikaslea->abizenak, tokena);
             tokena = strtok(NULL, TOK);
@@ -277,14 +311,10 @@ void ikasleakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzaileak){
             ikaslea->jaiotza.hilabetea = atoi(tokena);
             tokena = strtok(NULL, TOK);
             ikaslea->jaiotza.urtea = atoi(tokena);
+            ikasgaiakirakurri(ikaslea, idesk, gela->idgela, erabiltzaileak);
             //fscanf(ikaslefitx, "%i;%s;%s;", &ikaslea->idal, ikaslea->izena, ikaslea->abizenak);
             //fscanf(ikaslefitx, "%s;%i;%s;%s;%i;%s;", ikaslea->helbidea.kalea, &ikaslea->helbidea.zenbakia, ikaslea->helbidea.pisua, ikaslea->helbidea.herria, &ikaslea->helbidea.postakodea, ikaslea->helbidea.telefonoa);
             //fscanf(ikaslefitx, "%i;%i;%i%*[^\n]", &ikaslea->jaiotza.eguna, &ikaslea->jaiotza.hilabetea, &ikaslea->jaiotza.urtea);
-            ikasgaiakirakurri(ikaslea, idesk, gela->idgela, erabiltzaileak);
-            if (!feof(ikaslefitx)) {
-                ikaslea->hurrengoa = calloc(1, sizeof(IKASLE_t));
-                ikaslea = ikaslea->hurrengoa;
-            }
         }
         fclose(ikaslefitx);
     }
@@ -299,23 +329,23 @@ void stdikasgaiakirakurri(GELA_t *gela, int idesk, ERABILTZAILE_t *erabiltzailea
     sprintf(fitxategia, "./e%ie/g%ig/g%istdikas.csv", idesk, gela->idgela, gela->idgela);
     ikasgaifitx = fopen(fitxategia, "r");
     if (!ikasgaifitx) {
-        printf("Ezin izan da fitxategia irakurri\n");
+        printf("--nostd--\n");
     }else{
-        fscanf(ikasgaifitx, "%*[^\n]");
-        ikasgaia = calloc(1, sizeof(IKASGAI_t));
-        gela->stdikasgaiak = ikasgaia;
-        while (!feof(ikasgaifitx)) {
-            fgets(bufferra, 150, ikasgaifitx);
+        fgets(bufferra, 150, ikasgaifitx);
+        while (fgets(bufferra, 150, ikasgaifitx)) {
+            if (gela->stdikasgaiak == NULL) {
+                ikasgaia = calloc(1, sizeof(IKASGAI_t));
+                gela->stdikasgaiak = ikasgaia;
+            }else{
+                ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
+                ikasgaia = ikasgaia->hurrengoa;
+            }
             tokena = strtok(bufferra, TOK);
             strcpy(ikasgaia->izena, tokena);
             tokena = strtok(NULL, TOK);
             strcpy(irakasid, tokena);
             //fscanf(ikasgaifitx, "%s;%s%*[^\n]", ikasgaia->izena, irakasid);
             ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
-            if (!feof(ikasgaifitx)) {
-                ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
-                ikasgaia = ikasgaia->hurrengoa;
-            }
         }
         fclose(ikasgaifitx);
     }
@@ -330,13 +360,17 @@ void ikasgaiakirakurri(IKASLE_t *ikaslea, int idesk, int idgela, ERABILTZAILE_t 
     sprintf(fitxategia, "./e%ie/g%ig/i%ii/i%iiikasgaiak.csv", idesk, idgela, ikaslea->idal, ikaslea->idal);
     ikasgaifitx = fopen(fitxategia, "r");
     if (!ikasgaifitx) {
-        printf("Ez da fitxategia aurkitu\n");
+        printf("--noikg--\n");
     }else{
-        fscanf(ikasgaifitx, "%*[^\n]");
-        ikasgaia = calloc(1, sizeof(IKASGAI_t));
-        ikaslea->ikasgaiak = ikasgaia;
-        while (!feof(ikasgaifitx)) {
-            fgets(bufferra, 200, ikasgaifitx);
+        fgets(bufferra, 200, ikasgaifitx);
+        while (fgets(bufferra, 200, ikasgaifitx)) {
+            if (ikaslea->ikasgaiak == NULL) {
+                ikasgaia = calloc(1, sizeof(IKASGAI_t));
+                ikaslea->ikasgaiak = ikasgaia;
+            }else{
+                ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
+                ikasgaia = ikasgaia->hurrengoa;
+            }
             tokena = strtok(bufferra, TOK);
             strcpy(ikasgaia->izena, tokena);
             tokena = strtok(NULL, TOK);
@@ -345,10 +379,6 @@ void ikasgaiakirakurri(IKASLE_t *ikaslea, int idesk, int idgela, ERABILTZAILE_t 
             strcpy(irakasid, tokena);
             //fscanf(ikasgaifitx, "%s;%f;%s%*[^\n]", ikasgaia->izena, &ikasgaia->nota, irakasid);
             ikasgaia->irakaslea = aurkituerabiltzaile(erabiltzaileak, irakasid);
-            if (!feof(ikasgaifitx)) {
-                ikasgaia->hurrengoa = calloc(1, sizeof(IKASGAI_t));
-                ikasgaia = ikasgaia->hurrengoa;
-            }
         }
         fclose(ikasgaifitx);
     }

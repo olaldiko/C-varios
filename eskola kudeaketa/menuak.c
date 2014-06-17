@@ -21,6 +21,7 @@ void menusortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 	printf("1.\t Ikasgai bat sortu:\n");
 	printf("2.\t Amaitu dut, irten:\n");
 	scanf("%i", &aukera);
+    fpurge(stdin);
 	if(aukera == 1){
 		sortuikasgai(ikasgaiak, erabiltzaileak);
 	}
@@ -56,6 +57,7 @@ void menueskolanagusia(ESKOLA_t *eskola){
         printf("0. Irten\n");
         printf("Aukera ");
         scanf("%i", &aukera);
+        fpurge(stdin);
     }while((aukera < 0)&&(aukera > 2));
     if(aukera == 1){
     erabiltzailea = loginmenu(eskola->erabiltzaileak);
@@ -66,17 +68,21 @@ void menueskolanagusia(ESKOLA_t *eskola){
         case 2:
             menuirakasle(eskola, erabiltzailea);
             break;
+        default:
+            printf("Usererror\n");
+            break;
     }
     }else{
         if (aukera == 2){
             menuikasle(eskola);
         }
     }
+    
 }
 void menuidazk(ESKOLA_t **eskola){
 	int aukera=0;
 	GELA_t *gela;
-	while(aukera != 9){
+	while(aukera != 10){
 		system("clear");
 		printf("******************************************\n");
 		printf("** 1-Ikasle bat sartu                   **\n");
@@ -84,13 +90,14 @@ void menuidazk(ESKOLA_t **eskola){
 		printf("** 3-Ikasle bat ikusi                   **\n");
 		printf("** 4-Ikasle bat mugitu                  **\n");
 		printf("** 5-Ikasle bat kendu                   **\n");
-		printf("** 6-Gela bateko datuak modifikatu      **\n");
-		printf("** 7-Gela bateko ikasle guztiak ikusi   **\n");
-        printf("** 8-Erabiltzaile bat sortu             **\n");
-		printf("** 9-Irten                              **\n");
+        printf("** 6-Sortu gela bat                     **\n");
+		printf("** 7-Gela bateko datuak modifikatu      **\n");
+		printf("** 8-Gela bateko ikasle guztiak ikusi   **\n");
+        printf("** 9-Erabiltzaile bat sortu             **\n");
+		printf("** 10-Irten                              **\n");
 		printf("******************************************\n");
 		scanf("%i", &aukera);
-		fflush(stdin);
+		fpurge(stdin);
         
 		switch(aukera){
 			case 1:
@@ -109,20 +116,25 @@ void menuidazk(ESKOLA_t **eskola){
 			case 5:
 				borratuikasle((*eskola));
 				break;
-                
-			case 6:
+            case 6:
+                sortugela(eskola);
+                break;
+			case 7:
 				modifikatugela(eskola);
 				break;
                 
-			case 7:
+			case 8:
 				gela = aukeratugela((*eskola));
+                if (gela != NULL) {
 				bistaratunotakgela(gela);
+                }
 				break;
-            case 8:
-                sortuerabiltzaile(&(*eskola)->erabiltzaileak);
             case 9:
+                sortuerabiltzaile(&(*eskola)->erabiltzaileak);
+                break;
+            case 10:
                 printf("Irtetzen...");
-                eskolagorde((*eskola), (*eskola)->idesk);
+                break;
 			default:
 				printf("Zure aukera ez dago eskuragarri, saiatu berriz");
 				break;
@@ -263,18 +275,19 @@ void menunagusia(INDIZEA_t *indizea, int *idesk){
         printf("Aukera: ");
         scanf("%i", &aukera);
         fpurge(stdin);
-    }while((aukera < 0)&&(aukera > 2));
-    switch (aukera) {
-        case 1:
-            eskolaindex = aukeratueskola(indizea);
-            eskolairakurri(&eskola, eskolaindex->idesk);
-            menueskolanagusia(eskola);
-            break;
-        case 2:
-            menuadmin(&indizea, idesk, &eskola);
-        default:
-            break;
-    }
-    
+        switch (aukera) {
+            case 1:
+                eskolaindex = aukeratueskola(indizea);
+                eskolairakurri(&eskola, eskolaindex->idesk);
+                menueskolanagusia(eskola);
+                eskolagorde(eskola, eskola->idesk);
+                break;
+            case 2:
+                menuadmin(&indizea, idesk, &eskola);
+                break;
+            default:
+                break;
+        }
+    }while(aukera != 0);
 }
 #endif

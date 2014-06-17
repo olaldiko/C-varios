@@ -35,11 +35,14 @@ void bistaratugelak(ESKOLA_t *eskola){
 void bistaratunotakgela(GELA_t *gela){
 	IKASLE_t *aux;
 	printf("Izena\t\tAbizenak\t\tNota\n");
-	printf("-----------------------------------------------------------------------------");
+	printf("-----------------------------------------------------------------------------\n");
 	for (aux = gela->ikasleak; aux != NULL; aux = aux->hurrengoa){
 		printf("%s\t\t%s\t\t%f\n", aux->izena, aux->abizenak, notakbatazbesteko(aux->ikasgaiak));
 	}
-	printf("-----------------------------------------------------------------------------");
+	printf("-----------------------------------------------------------------------------\n");
+    printf("Sakatu tekla bat jarraitzeko\n");
+    getchar();
+    fpurge(stdin);
 }
 
 void bistaratunotakikasle(IKASLE_t *ikasle){
@@ -49,7 +52,10 @@ void bistaratunotakikasle(IKASLE_t *ikasle){
     for (ikasgai = ikasle->ikasgaiak; ikasgai != NULL; ikasgai = ikasgai->hurrengoa) {
         printf("%s\t%f\n", ikasgai->izena, ikasgai->nota);
     }
-    printf("--------------------------------------------------------------------------");
+    printf("--------------------------------------------------------------------------\n");
+    printf("Sakatu tekla bat jarraitzeko\n");
+    getchar();
+    fpurge(stdin);
 }
 void bistaratuikasle(ESKOLA_t *eskola){
     int idal = 0;

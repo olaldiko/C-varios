@@ -32,6 +32,9 @@ HELBIDE_t helbideasartu(){
 	printf("\nPosta kodea?\n>");
 	scanf("%i", &helbidea.postakodea);
 	fpurge(stdin);
+    printf("\nTelefonoa?\n>");
+    gets(helbidea.telefonoa);
+    fpurge(stdin);
 	return helbidea;
 }
 JAIO_t jaiotzasartu(){
@@ -48,20 +51,21 @@ JAIO_t jaiotzasartu(){
 	return jaiotza;
 }
 void kopiatuikasgai(GELA_t *gela, IKASGAI_t **ikasdest){
-	IKASGAI_t *hasiera;
 	IKASGAI_t *ikasgai;
+    IKASGAI_t *dest;
 	ikasgai = gela->stdikasgaiak;
-	(*ikasdest) = (IKASGAI_t*)calloc(1, sizeof(IKASGAI_t));
-	hasiera = (*ikasdest);
-	do{
-		memcpy(&(*ikasdest), &ikasgai, sizeof(IKASGAI_t));
-		if(ikasgai->hurrengoa != NULL){
-		(*ikasdest)->hurrengoa = (IKASGAI_t*)calloc(1, sizeof(IKASGAI_t));
-		(*ikasdest) = (*ikasdest)->hurrengoa;
-		}
-		ikasgai = ikasgai->hurrengoa;
-	}while(ikasgai != NULL);
-	(*ikasdest) = hasiera;
+	while (ikasgai != NULL) {
+        if ((*ikasdest) == NULL) {
+            (*ikasdest) = calloc(1, sizeof(IKASGAI_t));
+            dest = (*ikasdest);
+        }else{
+            dest->hurrengoa = calloc(1, sizeof(IKASGAI_t));
+            dest = dest->hurrengoa;
+        }
+        memccpy(dest, ikasgai, 1, sizeof(IKASGAI_t));
+        ikasgai = ikasgai->hurrengoa;
+    }
+    
 }
 GELA_t *aukeratugela(ESKOLA_t *eskola){
 	GELA_t *gela;
@@ -84,7 +88,7 @@ GELA_t *aukeratugela(ESKOLA_t *eskola){
 	scanf("%i", &aukera);
 	fpurge(stdin);
 	}while((aukera < 0)&&(aukera > kont));
-	for(i = 0, gela = eskola->gelak ; (i <= kont)&&(gela != NULL) ; gela = gela->hurrengoa , i++);
+	for(i = 0, gela = eskola->gelak ; (i <aukera)&&(gela != NULL) ; gela = gela->hurrengoa , i++);
 	return gela;
 }
 }
@@ -93,6 +97,7 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
 	int i = 0;
 	int kont = 0;
 	int aukera = 0;
+    int badaude = 0;
 	irakaslea = erabiltzaileak;
 	if(irakaslea == NULL){
 		printf("------------------------------Ez daude erabiltzailerik----------------------------\n");
@@ -101,17 +106,24 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
         do{
             for(;irakaslea !=NULL; irakaslea = irakaslea->hurrengoa, kont++){
                 if (irakaslea->mota == 2){
+                    badaude = 1;
                 printf("%i. %s %s\t", kont, irakaslea->izena, irakaslea->abizena);
                 if(kont %3 == 0)
                     printf("\n");
                 }
             }
+            if (badaude == 1){
             printf("\nAukeratu irakaslea mesedez:\n");
             scanf("%i", &aukera);
             fpurge(stdin);
+            }
         }while((aukera < 0)&&(aukera > kont));
-        for(i = 0, irakaslea = erabiltzaileak ; (i <= kont)&&(irakaslea != NULL) ; irakaslea = irakaslea->hurrengoa , i++);
-        return irakaslea;
+        if (badaude == 1){
+            for(i = 0, irakaslea = erabiltzaileak ; (i <= kont)&&(irakaslea != NULL) ; irakaslea = irakaslea->hurrengoa , i++);
+            return irakaslea;
+        }else{
+            return NULL;
+        }
     }
 }
 POSI_t aurkituikasle(int idal, ESKOLA_t *eskola){
@@ -180,23 +192,28 @@ ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *erabiltzaileak){
     printf("Sartu zure pasahitza:\n>");
     gets(pasahitza);
     fpurge(stdin);
-    for(erabiltzailea = erabiltzaileak; (((strcmp(erabiltzailea->ida,ida) != 0)||(strcmp(erabiltzailea->pasahitza, pasahitza) != 0))&&(erabiltzailea != NULL)); erabiltzailea = erabiltzailea->hurrengoa);
+    for(erabiltzailea = erabiltzaileak; (((strcmp(erabiltzailea->ida,ida) != 0)||(strcmp(erabiltzailea->pasahitza, pasahitza) != 0))&&(erabiltzailea->hurrengoa != NULL)); erabiltzailea = erabiltzailea->hurrengoa);
     if(erabiltzailea == NULL){
         printf("Erabiltzailea ez da aurkitu\n");
         getchar();
         fpurge(stdin);
     }else{
-        if(erabiltzailea->sartuda == 0){
-            printf("sartzen zaren lehenengo aldia da, mesedez, sartu pasahitz berri bat(minimo 8 karaktere)\n");
-            gets(erabiltzailea->pasahitza);
-            fpurge(stdin);
-            while(strlen(pasahitza)< 8){
-                printf("Pasahitzak ez ditu minimoak betetzen, saiatu berriz\n");
+        if (((strcmp(erabiltzailea->ida,ida) == 0)&&(strcmp(erabiltzailea->pasahitza, pasahitza) == 0))){
+            if(erabiltzailea->sartuda == 0){
+                printf("sartzen zaren lehenengo aldia da, mesedez, sartu pasahitz berri bat(minimo 8 karaktere)\n");
                 gets(erabiltzailea->pasahitza);
                 fpurge(stdin);
+                while(strlen(erabiltzailea->pasahitza)< 8){
+                    printf("Pasahitzak ez ditu minimoak betetzen, saiatu berriz\n");
+                    gets(erabiltzailea->pasahitza);
+                    fpurge(stdin);
+                }
+                printf("Pasahitza aldatu egin da\n");
+                erabiltzailea->sartuda = 1;
             }
-            printf("Pasahitza aldatu egin da\n");
-            erabiltzailea->sartuda = 1;
+        }else{
+            printf("Pasahitza ez da zuzena, saiatu berriz\n");
+            erabiltzailea = NULL;
         }
     }
     }while(erabiltzailea == NULL);
@@ -221,8 +238,8 @@ INDIZEA_t *aukeratueskola(INDIZEA_t *indizea){
             printf("\nAukeratu eskola mesedez:\n");
             scanf("%i", &aukera);
             fpurge(stdin);
-        }while((aukera < 0)&&(aukera > kont));
-        for(i = 0, eskola = indizea ; (i <= kont)&&(eskola != NULL) ; eskola = eskola->hurrengoa , i++);
+        }while((aukera < 0)||(aukera > kont));
+        for(i = 0, eskola = indizea ; (i < aukera)&&(eskola->hurrengoa != NULL) ; eskola = eskola->hurrengoa , i++);
         return eskola;
     }
     
@@ -237,7 +254,11 @@ void sortuerabiltzaileid(ERABILTZAILE_t *erabiltzailea){
     strcpy(erabiltzailea->ida, iderabil);
 }
 ERABILTZAILE_t *aurkituerabiltzaile(ERABILTZAILE_t *erabiltzaileak, char iderabil[]){
+    if (strcmp(iderabil, "--")== 0) {
+        return NULL;
+    }else{
     for (; ((strcmp(erabiltzaileak->ida, iderabil)!= 0)&&(erabiltzaileak != NULL)); erabiltzaileak = erabiltzaileak->hurrengoa);
     return erabiltzaileak;
+    }
     }
 #endif
