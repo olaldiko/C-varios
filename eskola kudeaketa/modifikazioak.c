@@ -159,13 +159,22 @@ void mugituikasle(ESKOLA_t **eskola){
     posizioa = aurkituikasle(idal, *eskola);
     geladest = aukeratugela(*eskola);
     if((geladest != NULL)&&(posizioa.ikaslea != NULL)){
-    for(ikaslesrc = posizioa.ikaslea; ikaslesrc->hurrengoa == posizioa.ikaslea; ikaslesrc = ikaslesrc->hurrengoa);
+    for(ikaslesrc = posizioa.gelaikas->ikasleak; ikaslesrc->hurrengoa == posizioa.ikaslea; ikaslesrc = ikaslesrc->hurrengoa);
     ikaslesrc->hurrengoa = NULL;
         posizioa.gelaikas->ikasle_kop--;
-        for(ikasledest = geladest->ikasleak;ikasledest->hurrengoa != NULL; ikasledest = ikasledest->hurrengoa);
-        ikasledest->hurrengoa = posizioa.ikaslea;
+        if (geladest->ikasleak == NULL) {
+            geladest->ikasleak = posizioa.ikaslea;
+        }else{
+            for(ikasledest = geladest->ikasleak;ikasledest->hurrengoa != NULL; ikasledest = ikasledest->hurrengoa);
+            if (posizioa.ikaslea->hurrengoa != NULL) {
+                for (ikaslesrc = posizioa.gelaikas->ikasleak; ikaslesrc->hurrengoa == posizioa.ikaslea; ikaslesrc = ikaslesrc->hurrengoa);
+                ikaslesrc->hurrengoa = posizioa.ikaslea->hurrengoa;
+            }
+            ikasledest->hurrengoa = posizioa.ikaslea;
+        }
+        posizioa.ikaslea->hurrengoa = NULL;
         geladest->ikasle_kop++;
-        
+        posizioa.gelaikas->ikasle_kop--;
     }else{
         printf("errorea gertatu da, gela edo ikaslea ez duzu ondo aukeratu");
     }

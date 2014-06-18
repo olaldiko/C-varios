@@ -34,10 +34,10 @@ void bistaratugelak(ESKOLA_t *eskola){
 
 void bistaratunotakgela(GELA_t *gela){
 	IKASLE_t *aux;
-	printf("Izena\t\tAbizenak\t\tNota\n");
+	printf("IDa\t\tIzena\t\tAbizenak\t\tNota\n");
 	printf("-----------------------------------------------------------------------------\n");
 	for (aux = gela->ikasleak; aux != NULL; aux = aux->hurrengoa){
-		printf("%s\t\t%s\t\t%f\n", aux->izena, aux->abizenak, notakbatazbesteko(aux->ikasgaiak));
+		printf("%i\t\t%s\t\t%s\t\t%f\n", aux->idal ,aux->izena, aux->abizenak, notakbatazbesteko(aux->ikasgaiak));
 	}
 	printf("-----------------------------------------------------------------------------\n");
     printf("Sakatu tekla bat jarraitzeko\n");
@@ -63,6 +63,7 @@ void bistaratuikasle(ESKOLA_t *eskola){
     system("clear");
     printf("Mesedez, sartu ikaslearen IDALa:\n");
     scanf("%i", &idal);
+    fpurge(stdin);
     pos = aurkituikasle(idal, eskola);
     if (pos.ikaslea != NULL) {
         printf("Izena: %s\n",pos.ikaslea->izena);
@@ -86,11 +87,12 @@ void bistaratuikasle(ESKOLA_t *eskola){
 }
 void bistaratunotakirakas(IKASLE_t *ikaslea, ERABILTZAILE_t *irakaslea){
     IKASGAI_t *ikasgaia;
-    printf("Izen abizenak: %s %s\n", ikaslea->izena, ikaslea->abizenak);
+    printf("Izen abizenak: %s %s\t", ikaslea->izena, ikaslea->abizenak);
     for (ikasgaia = ikaslea->ikasgaiak; ikasgaia!= NULL; ikasgaia = ikasgaia->hurrengoa) {
         if (ikasgaia->irakaslea == irakaslea) {
             printf("\tIkasgaia: %s\tNota: %f\n", ikasgaia->izena, ikasgaia->nota);
         }
+        printf("\n");
     }
     
 }

@@ -64,15 +64,22 @@ void borratueskola(INDIZEA_t **indizea, int *idesk){
     INDIZEA_t *hasiera;
     char fitxategia[50];
     eskolaind = aukeratueskola((*indizea));
+    if (eskolaind != NULL) {
     if  (eskolaind == (*indizea)){
         (*indizea) = (*indizea)->hurrengoa;
     }else{
         for (hasiera = (*indizea); hasiera->hurrengoa != eskolaind; hasiera = hasiera ->hurrengoa);
         hasiera->hurrengoa = eskolaind->hurrengoa;
     }
+    sprintf(fitxategia, "rm ./e%ie.csv", eskolaind->idesk);
+    system("fitxategia");
     sprintf(fitxategia, "rm -r \"./e%ie\"", eskolaind->idesk); //Utilizar system y rm es una guarrada, lo se... con mas tiempo hago una recursiva con remove();
     system(fitxategia);
     free(eskolaind);
     indizeagorde((*indizea), idesk);
+    }
+    printf("\nSakatu tekla bat jarraitzeko");
+    getchar();
+    fpurge(stdin);
 }
 #endif

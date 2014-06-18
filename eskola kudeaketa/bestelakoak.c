@@ -62,7 +62,7 @@ void kopiatuikasgai(GELA_t *gela, IKASGAI_t **ikasdest){
             dest->hurrengoa = calloc(1, sizeof(IKASGAI_t));
             dest = dest->hurrengoa;
         }
-        memccpy(dest, ikasgai, 1, sizeof(IKASGAI_t));
+        memcpy(dest, ikasgai, sizeof(IKASGAI_t));
         ikasgai = ikasgai->hurrengoa;
     }
     
@@ -119,7 +119,7 @@ ERABILTZAILE_t *aukeratuirakasle(ERABILTZAILE_t *erabiltzaileak){
             }
         }while((aukera < 0)&&(aukera > kont));
         if (badaude == 1){
-            for(i = 0, irakaslea = erabiltzaileak ; (i <= kont)&&(irakaslea != NULL) ; irakaslea = irakaslea->hurrengoa , i++);
+            for(i = 0, irakaslea = erabiltzaileak ; (i < aukera)&&(irakaslea != NULL) ; irakaslea = irakaslea->hurrengoa , i++);
             return irakaslea;
         }else{
             return NULL;
@@ -135,10 +135,13 @@ POSI_t aurkituikasle(int idal, ESKOLA_t *eskola){
 		while((posizioa.ikaslea != NULL)&&(aurkitua == 0)){
 			if(posizioa.ikaslea->idal == idal){
 				aurkitua = 1;
-			}
+			}else{
 			posizioa.ikaslea = posizioa.ikaslea->hurrengoa;
+            }
 		}
+        if (aurkitua != 1) {
 		posizioa.gelaikas = posizioa.gelaikas->hurrengoa;
+        }
 	}
 	return posizioa;
 }
@@ -166,7 +169,7 @@ IKASGAI_t *aukeratuikasgai(IKASGAI_t *ikasgaiak, ERABILTZAILE_t *irakaslea){
         return NULL;
     }
     }while (((aukera < 0)||(aukera > kont))&&(badaude == 1));
-    for (ikasgaia = ikasgaiak, i = 0; ((ikasgaia != NULL)&&(i <= kont)); ikasgaia = ikasgaia->hurrengoa, i++);
+    for (ikasgaia = ikasgaiak, i = 0; ((ikasgaia != NULL)&&(i < aukera)); ikasgaia = ikasgaia->hurrengoa, i++);
     return ikasgaia;
 }
 float notakbatazbesteko(IKASGAI_t *ikasgaiak){

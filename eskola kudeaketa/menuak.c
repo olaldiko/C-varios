@@ -219,7 +219,9 @@ void notaksartumenu(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
         printf("Ikaslea ez da aurkitu\n");
 	}else{
         ikasgaia = aukeratuikasgai(pos.ikaslea->ikasgaiak, irakaslea);
-        ikasgaia->nota = notaksartu();
+        if(ikasgaia != NULL){
+            ikasgaia->nota = notaksartu();
+        }
     }
 }
 void menuadmin(INDIZEA_t **indizea, int *idesk, ESKOLA_t **eskola){
@@ -278,9 +280,11 @@ void menunagusia(INDIZEA_t *indizea, int *idesk){
         switch (aukera) {
             case 1:
                 eskolaindex = aukeratueskola(indizea);
+                if (eskolaindex != NULL) {
                 eskolairakurri(&eskola, eskolaindex->idesk);
                 menueskolanagusia(eskola);
                 eskolagorde(eskola, eskola->idesk);
+                }
                 break;
             case 2:
                 menuadmin(&indizea, idesk, &eskola);

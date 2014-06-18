@@ -35,6 +35,7 @@ void sortuikasle(ESKOLA_t **eskola){
 	ikaslea->jaiotza = jaiotzasartu();
 	kopiatuikasgai(gela, &ikaslea->ikasgaiak);
     (*eskola)->idikasle++;
+    gela->ikasle_kop++;
     }
 }
 void sortugela(ESKOLA_t **eskola){
@@ -67,7 +68,7 @@ void sortuikasgai(IKASGAI_t **ikasgaiak, ERABILTZAILE_t *erabiltzaileak){
 		(*ikasgaiak) = (IKASGAI_t *)calloc(1, sizeof(IKASGAI_t));
 		ikasgaiberri = (*ikasgaiak);
 	}else{
-		for(ikasgaiberri = (*ikasgaiak);ikasgaiberri ->hurrengoa != NULL; ikasgaiberri = ikasgaiberri->hurrengoa);
+		for(ikasgaiberri = (*ikasgaiak);ikasgaiberri->hurrengoa != NULL; ikasgaiberri = ikasgaiberri->hurrengoa);
 		ikasgaiberri->hurrengoa = (IKASGAI_t *)calloc(1, sizeof(IKASGAI_t));
 		ikasgaiberri = ikasgaiberri->hurrengoa;
 	}
