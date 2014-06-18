@@ -121,6 +121,8 @@ void sortuerabiltzaile(ERABILTZAILE_t **erabiltzaileak){
     }
     if (init == 1) {
         printf("Adi! Lehenengo erabiltzailea denez, hau idazkaria izango da\n");
+        getchar();
+        fpurge(stdin);
     }
     printf("Sartu erabiltzaile berriaren izena:\n");
     gets(berria->izena);
@@ -141,5 +143,8 @@ void sortuerabiltzaile(ERABILTZAILE_t **erabiltzaileak){
         }while((aukera < 1)||(aukera > 2));
         berria->mota = aukera;
     }
+    printf("Erabiltzailea sortu da\n");
+    getchar();
+    fpurge(stdin);
 }
 #endif

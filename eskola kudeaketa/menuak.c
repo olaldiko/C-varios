@@ -178,7 +178,9 @@ void menuirakasle(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
 				break;
                 
 			default:
-				printf("Zure aukera ez dago eskuragarri, saiatu berriz");
+				printf("Zure aukera ez dago eskuragarri, saiatu berriz\n");
+                getchar();
+                fpurge(stdin);
 				break;
                 
 		}
@@ -210,7 +212,7 @@ void notaksartumenu(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
 	POSI_t pos;
     IKASGAI_t *ikasgaia;
 	int idal = 0;
-	system("CLS");
+	system("clear");
 	printf("Mesedez, sartu ikaslearen ida:\n");
 	scanf("%i", &idal);
 	fflush(stdin);

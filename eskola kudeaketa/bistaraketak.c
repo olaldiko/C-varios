@@ -94,7 +94,8 @@ void bistaratunotakirakas(IKASLE_t *ikaslea, ERABILTZAILE_t *irakaslea){
         }
         printf("\n");
     }
-    
+    getchar();
+    fpurge(stdin);
 }
 void bistaratunotakirakasgela(ESKOLA_t *eskola, ERABILTZAILE_t *irakaslea){
     IKASLE_t *ikasleak;

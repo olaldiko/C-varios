@@ -177,6 +177,8 @@ void mugituikasle(ESKOLA_t **eskola){
         posizioa.gelaikas->ikasle_kop--;
     }else{
         printf("errorea gertatu da, gela edo ikaslea ez duzu ondo aukeratu");
+        getchar();
+        fpurge(stdin);
     }
 }
 #endif

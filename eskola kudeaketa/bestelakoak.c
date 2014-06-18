@@ -153,7 +153,7 @@ IKASGAI_t *aukeratuikasgai(IKASGAI_t *ikasgaiak, ERABILTZAILE_t *irakaslea){
     IKASGAI_t *ikasgaia;
     
     do{
-    printf("Aukeratu ikasgaia mesedez");
+    printf("Aukeratu ikasgaia mesedez\n");
     for (ikasgaia = ikasgaiak; ikasgaia!= NULL; ikasgaia = ikasgaia->hurrengoa, kont++) {
         if (ikasgaia->irakaslea == irakaslea) {
             printf("%i. %s\n", kont, ikasgaia->izena);
@@ -166,6 +166,8 @@ IKASGAI_t *aukeratuikasgai(IKASGAI_t *ikasgaiak, ERABILTZAILE_t *irakaslea){
         fpurge(stdin);
     }else{
         printf("Ikasle honek ez ditu zuk emandako ikasgairik\n");
+        getchar();
+        fpurge(stdin);
         return NULL;
     }
     }while (((aukera < 0)||(aukera > kont))&&(badaude == 1));
@@ -212,10 +214,14 @@ ERABILTZAILE_t *loginmenu(ERABILTZAILE_t *erabiltzaileak){
                     fpurge(stdin);
                 }
                 printf("Pasahitza aldatu egin da\n");
+                getchar();
+                fpurge(stdin);
                 erabiltzailea->sartuda = 1;
             }
         }else{
             printf("Pasahitza ez da zuzena, saiatu berriz\n");
+            getchar();
+            fpurge(stdin);
             erabiltzailea = NULL;
         }
     }
@@ -229,7 +235,7 @@ INDIZEA_t *aukeratueskola(INDIZEA_t *indizea){
 	int aukera = 0;
 	eskola = indizea;
 	if(indizea == NULL){
-		printf("------------------------------Ez daude eskolarik----------------------------\n");
+		printf("\n------------------------------Ez daude eskolarik----------------------------\n");
 		return NULL;
 	}else{
         do{
@@ -249,7 +255,7 @@ INDIZEA_t *aukeratueskola(INDIZEA_t *indizea){
 }
 void sortuerabiltzaileid(ERABILTZAILE_t *erabiltzailea){
     char iderabil[50];
-    strncat(iderabil, erabiltzailea->izena, 6);
+    strncat(iderabil, erabiltzailea->izena, 2);
     strncat(iderabil, erabiltzailea->abizena, 8);
     printf("Erabiltzaile ID berria ---%s--- da (Sakatu enter jarritzeko)\n", iderabil);
     getchar();

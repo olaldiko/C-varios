@@ -43,7 +43,9 @@ void borratuikasle(ESKOLA_t *eskola){
 	scanf("%i", &id);
     pos = aurkituikasle(id, eskola);
     if (pos.ikaslea == NULL) {
-        printf("Ikaslea ez da aurkitu\n");
+        printf("\nIkaslea ez da aurkitu\n");
+        getchar();
+        fpurge(stdin);
     }else{
         if (pos.ikaslea == pos.gelaikas->ikasleak) {
             pos.gelaikas->ikasleak = pos.ikaslea->hurrengoa;
@@ -72,7 +74,7 @@ void borratueskola(INDIZEA_t **indizea, int *idesk){
         hasiera->hurrengoa = eskolaind->hurrengoa;
     }
     sprintf(fitxategia, "rm ./e%ie.csv", eskolaind->idesk);
-    system("fitxategia");
+    system(fitxategia);
     sprintf(fitxategia, "rm -r \"./e%ie\"", eskolaind->idesk); //Utilizar system y rm es una guarrada, lo se... con mas tiempo hago una recursiva con remove();
     system(fitxategia);
     free(eskolaind);
